@@ -1,0 +1,5 @@
+{
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "SL rapide",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "Recharge la sauvegarde de la partie en cours, comme Sauvegarder et quitter puis Continuer.",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Raccourcis"
+}

@@ -1,0 +1,81 @@
+No Redistribution License
+
+Copyright (c) 2026 JMC. All rights reserved.
+
+Repository: https://github.com/JMC2002/SlayTheSpire2_QuickSL
+
+中文
+
+本许可证适用于采用本许可证发布的 Mod 的源代码、二进制文件、资源文件、配置文件、文档以及其他随项目发布的内容，以下统称“本 Mod”。
+
+1. 个人使用
+
+   允许最终用户仅为个人游玩、学习、调试或自行构建目的下载、安装、查看、构建和在本地修改本 Mod。
+
+2. 禁止未经许可二次分发
+
+   未经作者 JMC 事先明确书面许可，任何人不得以任何形式复制、转载、上传、镜像、重新打包、公开发布、合并进整合包或合集、出售、出租、再授权、分发或提供下载本 Mod 的全部或部分内容。
+
+   上述限制包括但不限于源代码、编译产物、PCK 文件、配置文件、图片、文本、本地化文件、文档、修改版以及基于本 Mod 制作的派生版本。
+
+3. 禁止误导性署名
+
+   不得移除、隐藏或篡改本 Mod 的作者署名、版权声明、许可证文本、依赖声明或来源说明。不得以任何方式暗示未经授权的版本由 JMC 官方发布、认可或维护。
+
+4. 允许的引用
+
+   允许在视频、文章、攻略、问题反馈、兼容性说明或类似内容中引用本 Mod 的名称、链接、截图、少量日志或少量代码片段，前提是不得提供本 Mod 文件、完整源码或可直接复用的实质性部分。
+
+5. 第三方内容
+
+   本 Mod 可能依赖第三方库、游戏文件或其他外部内容。此类内容仍受其各自许可证或权利声明约束。本许可证不授予任何第三方内容的额外权利。
+
+6. 贡献
+
+   允许通过项目官方仓库提交 Issue、Pull Request 或类似贡献。除非另有书面约定，提交贡献即表示你同意作者 JMC 可以按本许可证或项目后续采用的许可证使用、修改、发布和分发该贡献。
+
+7. Fork
+
+   允许通过 GitHub 官方功能 fork 本仓库，但仅限于个人使用、审阅、调试和贡献目的。Fork 不代表获得二次分发、发布 Release、重新打包、镜像、出售或以其他方式公开提供本 Mod 的许可。
+
+8. 免责声明
+
+   本 Mod 按“现状”提供，不作任何明示或默示担保。作者不保证本 Mod 永远可用、无错误、兼容任何特定游戏版本或不会造成存档、配置、游戏进程或其他数据问题。使用本 Mod 的风险由用户自行承担。
+
+English
+
+This license applies to the source code, binaries, assets, configuration files, documentation, and any other content distributed with any Mod released under this license, collectively referred to as "the Mod".
+
+1. Personal Use
+
+   End users may download, install, inspect, build, and locally modify the Mod solely for personal gameplay, learning, debugging, or private build purposes.
+
+2. No Redistribution Without Permission
+
+   Without prior explicit written permission from JMC, no person may copy, repost, upload, mirror, repackage, publicly release, include in a mod pack or collection, sell, rent, sublicense, distribute, or make available for download all or any part of the Mod.
+
+   This restriction includes, but is not limited to, source code, compiled binaries, PCK files, configuration files, images, text, localization files, documentation, modified versions, and derivative versions based on the Mod.
+
+3. No Misleading Attribution
+
+   You may not remove, hide, or alter the Mod's author attribution, copyright notice, license text, dependency notices, or source information. You may not imply that an unauthorized version is officially released, endorsed, or maintained by JMC.
+
+4. Permitted References
+
+   You may reference the Mod's name, link, screenshots, short logs, or small code snippets in videos, articles, guides, bug reports, compatibility notes, or similar materials, provided that you do not provide the Mod files, the complete source code, or any substantial reusable portion of the Mod.
+
+5. Third-Party Content
+
+   The Mod may depend on third-party libraries, game files, or other external content. Such content remains subject to its own licenses or rights notices. This license does not grant any additional rights to third-party content.
+
+6. Contributions
+
+   Contributions through the official project repository, such as Issues, Pull Requests, or similar submissions, are permitted. Unless otherwise agreed in writing, by submitting a contribution you agree that JMC may use, modify, publish, and distribute that contribution under this license or any later license adopted by the project.
+
+7. Forks
+
+   Forking this repository through GitHub's official functionality is permitted only for personal use, review, debugging, and contribution purposes. A fork does not grant permission to redistribute, publish releases, repackage, mirror, sell, or otherwise make the Mod available outside the permissions expressly granted by this license.
+
+8. Disclaimer
+
+   The Mod is provided "as is", without any express or implied warranty. JMC does not guarantee that the Mod will remain available, be error-free, be compatible with any particular game version, or avoid issues with saves, configuration, game progress, or other data. Use of the Mod is at your own risk.

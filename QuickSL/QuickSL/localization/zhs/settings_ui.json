@@ -1,0 +1,5 @@
+{
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "快速 SL",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "重新载入当前局的存档，效果等同于保存并退出后继续游戏。",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "热键"
+}

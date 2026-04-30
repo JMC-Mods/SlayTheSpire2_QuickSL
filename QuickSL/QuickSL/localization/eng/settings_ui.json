@@ -1,0 +1,5 @@
+{
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "Quick Save Load",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "Reloads the current run save, equivalent to Save and Quit, then Continue.",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Hotkeys"
+}

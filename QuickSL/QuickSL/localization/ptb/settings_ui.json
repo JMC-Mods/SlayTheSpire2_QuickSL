@@ -1,0 +1,5 @@
+{
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "SL rapido",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "Recarrega o save da partida atual, equivalente a Salvar e sair e depois Continuar.",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Atalhos"
+}

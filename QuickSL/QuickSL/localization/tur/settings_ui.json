@@ -1,0 +1,5 @@
+{
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "Hizli SL",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "Gecerli kosunun kaydini yeniden yukler; Kaydet ve Cik, ardindan Devam Et ile ayni etkiyi verir.",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Kisayollar"
+}

@@ -1,0 +1,5 @@
+{
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "Быстрое SL",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "Перезагружает сохранение текущего забега, как если бы вы выбрали Сохранить и выйти, а затем Продолжить.",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Горячие клавиши"
+}

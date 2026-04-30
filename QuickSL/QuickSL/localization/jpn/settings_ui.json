@@ -1,0 +1,5 @@
+{
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "クイックSL",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "現在のラン保存を再読み込みします。保存して終了してから続行するのと同じ効果です。",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "ホットキー"
+}

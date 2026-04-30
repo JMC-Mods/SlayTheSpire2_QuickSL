@@ -1,0 +1,5 @@
+{
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "Quick SL",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "โหลดเซฟของรันปัจจุบันใหม่ เหมือนกับบันทึกและออก แล้วกดเล่นต่อ",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "ปุ่มลัด"
+}
