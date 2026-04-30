@@ -1,5 +1,12 @@
 {
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "SL rapido",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "Recarrega o save da partida atual, equivalente a Salvar e sair e depois Continuar.",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Atalhos"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Atalhos",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Multijogador",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Perguntar aos clientes antes do SL multijogador",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "Como host, pergunta a todos os clientes conectados antes do Quick Save Load; se desativado, os clientes recarregam imediatamente.",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "Quick Save Load multijogador",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "O host quer recarregar o save da partida atual. O Quick Save Load sera executado para todos depois que todos os clientes concordarem. Concorda?",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "Concordar",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "Recusar"
 }

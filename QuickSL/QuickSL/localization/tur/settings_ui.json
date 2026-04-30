@@ -1,5 +1,12 @@
 {
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "Hizli SL",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "Gecerli kosunun kaydini yeniden yukler; Kaydet ve Cik, ardindan Devam Et ile ayni etkiyi verir.",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Kisayollar"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Kisayollar",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Cok oyunculu",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Cok oyunculu SL oncesi istemcilere sor",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "Host iken Quick Save Load oncesi bagli tum istemcilere sorar; kapaliysa istemcilere hemen yeniden yukleme bildirilir.",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "Cok oyunculu Quick Save Load",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "Host gecerli kosu kaydini yeniden yuklemek istiyor. Tum istemciler kabul ettikten sonra Quick Save Load herkes icin calisir. Kabul ediyor musun?",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "Kabul et",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "Reddet"
 }

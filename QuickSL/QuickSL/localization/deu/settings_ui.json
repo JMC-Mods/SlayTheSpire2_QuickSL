@@ -1,5 +1,12 @@
 {
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "Schnelles SL",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "Laedt den aktuellen Spielstand neu, wie Speichern und Beenden und danach Fortsetzen.",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Tastenkurzel"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Tastenkurzel",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Mehrspieler",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Clients vor Mehrspieler-SL fragen",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "Fragt als Host alle verbundenen Clients vor Quick Save Load; wenn deaktiviert, werden Clients direkt zum Neuladen aufgefordert.",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "Mehrspieler Quick Save Load",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "Der Host moechte den aktuellen Spielstand neu laden. Quick Save Load wird fuer alle ausgefuehrt, nachdem alle Clients zugestimmt haben. Zustimmen?",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "Zustimmen",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "Ablehnen"
 }

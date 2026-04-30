@@ -1,5 +1,12 @@
 {
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "Quick SL",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "โหลดเซฟของรันปัจจุบันใหม่ เหมือนกับบันทึกและออก แล้วกดเล่นต่อ",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "ปุ่มลัด"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "ปุ่มลัด",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "ผู้เล่นหลายคน",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "ถามลูกข่ายก่อน SL ผู้เล่นหลายคน",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "เมื่อเป็นโฮสต์ ให้ถามลูกข่ายที่เชื่อมต่อทั้งหมดก่อน Quick Save Load; หากปิด จะสั่งให้ลูกข่ายโหลดใหม่ทันที",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "Quick Save Load ผู้เล่นหลายคน",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "โฮสต์ต้องการโหลดเซฟรันปัจจุบันใหม่ Quick Save Load จะทำงานกับทุกคนหลังจากลูกข่ายทุกคนยอมรับ คุณยอมรับหรือไม่?",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "ยอมรับ",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "ปฏิเสธ"
 }

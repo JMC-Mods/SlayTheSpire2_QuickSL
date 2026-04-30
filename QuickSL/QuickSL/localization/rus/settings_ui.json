@@ -1,5 +1,12 @@
 {
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "Быстрое SL",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "Перезагружает сохранение текущего забега, как если бы вы выбрали Сохранить и выйти, а затем Продолжить.",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Горячие клавиши"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Горячие клавиши",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Сетевая игра",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Спрашивать клиентов перед сетевым SL",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "Если вы хост, спрашивает всех подключенных клиентов перед Quick Save Load; если выключено, клиенты сразу получают команду перезагрузки.",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "Сетевой Quick Save Load",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "Хост хочет перезагрузить сохранение текущего забега. Quick Save Load выполнится у всех после согласия всех клиентов. Согласиться?",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "Согласиться",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "Отказаться"
 }

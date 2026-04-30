@@ -1,5 +1,12 @@
 {
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "Szybkie SL",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "Wczytuje zapis biezacej rozgrywki, jak po Zapisz i wyjdz, a potem Kontynuuj.",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Skroty"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Skroty",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Wieloosobowe",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Pytaj klientow przed SL wieloosobowym",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "Jako host pyta wszystkich polaczonych klientow przed Quick Save Load; po wylaczeniu klienci od razu dostana polecenie wczytania.",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "Wieloosobowe Quick Save Load",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "Host chce wczytac zapis biezacej rozgrywki. Quick Save Load uruchomi sie u wszystkich, gdy wszyscy klienci sie zgodza. Zgadzasz sie?",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "Zgoda",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "Odmowa"
 }

@@ -1,5 +1,12 @@
 {
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "Quick Save Load",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "Reloads the current run save, equivalent to Save and Quit, then Continue.",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Hotkeys"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "Hotkeys",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Multiplayer",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Ask clients before multiplayer SL",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "When hosting, ask all connected clients before Quick Save Load; when disabled, clients are told to reload immediately.",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "Multiplayer Quick Save Load",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "The host wants to reload the current run save. Quick Save Load will run for everyone after all clients agree. Do you agree?",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "Agree",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "Decline"
 }

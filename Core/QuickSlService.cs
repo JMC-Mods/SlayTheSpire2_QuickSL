@@ -25,6 +25,35 @@ public static class QuickSlService
 
     private static async Task RunQuickSlAsync()
     {
+        try
+        {
+            NetGameType netType = RunManager.Instance.NetService.Type;
+            if (netType == NetGameType.Host)
+            {
+                await MultiplayerQuickSlCoordinator.RunHostAsync();
+                return;
+            }
+
+            if (netType == NetGameType.Client)
+            {
+                ModLogger.Warn("多人快速 SL 失败：多人局快速 SL 需要由主机发起。");
+                return;
+            }
+
+            await RunSinglePlayerQuickSlAsync();
+        }
+        catch (Exception ex)
+        {
+            ModLogger.Error("快速 SL 分流执行失败。", ex);
+        }
+        finally
+        {
+            RunLock.Release();
+        }
+    }
+
+    private static async Task RunSinglePlayerQuickSlAsync()
+    {
         bool fadedOut = false;
         bool cleanedUp = false;
 
@@ -107,10 +136,6 @@ public static class QuickSlService
         {
             ModLogger.Error("快速 SL 执行失败。", ex);
             await TryRecoverAsync(fadedOut, cleanedUp);
-        }
-        finally
-        {
-            RunLock.Release();
         }
     }
 

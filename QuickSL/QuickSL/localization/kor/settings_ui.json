@@ -1,5 +1,12 @@
 {
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "빠른 SL",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "현재 런 저장을 다시 불러옵니다. 저장 후 종료하고 계속하기를 누르는 것과 같습니다.",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "단축키"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "단축키",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "멀티플레이",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "멀티플레이 SL 전에 클라이언트 확인",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "호스트일 때 Quick Save Load 전에 접속 중인 모든 클라이언트에게 확인합니다. 끄면 즉시 다시 불러오도록 알립니다.",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "멀티플레이 Quick Save Load",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "호스트가 현재 런 저장을 다시 불러오려고 합니다. 모든 클라이언트가 동의하면 모두에게 Quick Save Load가 실행됩니다. 동의하시겠습니까?",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "동의",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "거절"
 }

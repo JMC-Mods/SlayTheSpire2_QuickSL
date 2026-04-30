@@ -1,5 +1,12 @@
 {
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "快速 SL",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "重新载入当前局的存档，效果等同于保存并退出后继续游戏。",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "热键"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "热键",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "多人",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "多人 SL 前询问客机",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "作为主机发起多人快速 SL 时，先弹窗询问所有已连接客机；关闭后会直接通知客机同步 SL。",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "多人快速 SL",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "主机请求重新载入当前局存档。所有客机同意后，本局会同步执行快速 SL。是否同意？",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "同意",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "拒绝"
 }

@@ -1,5 +1,12 @@
 {
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.NAME": "クイックSL",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.keybind.quick_sl.DESCRIPTION": "現在のラン保存を再読み込みします。保存して終了してから続行するのと同じ効果です。",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "ホットキー"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.keybinds": "ホットキー",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "マルチプレイ",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "マルチプレイSL前にクライアントへ確認",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "ホスト時、Quick Save Load の前に接続中の全クライアントへ確認します。オフの場合はすぐに再読み込みを通知します。",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "マルチプレイ Quick Save Load",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "ホストが現在のラン保存を再読み込みしようとしています。全クライアントが同意すると、全員で Quick Save Load を実行します。同意しますか？",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "同意",
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "拒否"
 }

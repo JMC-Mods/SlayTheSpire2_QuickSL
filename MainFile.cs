@@ -1,7 +1,9 @@
 using QuickSL.Core;
 using Godot;
+using HarmonyLib;
 using JmcModLib.Utils;
 using MegaCrit.Sts2.Core.Modding;
+using System.Reflection;
 
 namespace QuickSL;
 
@@ -14,6 +16,8 @@ public partial class MainFile : Node
             .RegisterLogger(uIFlags: LogConfigUIFlags.All)
             .UseConfig()
             .Done();
+
+        new Harmony($"JMC.{VersionInfo.Name}").PatchAll(Assembly.GetExecutingAssembly());
 
         ModLogger.Info("======================================");
         ModLogger.Info($" {VersionInfo.Name} v{VersionInfo.Version} 正在启动...");
