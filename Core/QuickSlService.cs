@@ -36,7 +36,7 @@ public static class QuickSlService
 
             if (netType == NetGameType.Client)
             {
-                ModLogger.Warn("多人快速 SL 失败：多人局快速 SL 需要由主机发起。");
+                await MultiplayerQuickSlCoordinator.RunClientAsync();
                 return;
             }
 

@@ -5,8 +5,16 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Multijogador",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Perguntar aos clientes antes do SL multijogador",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "Como host, pergunta a todos os clientes conectados antes do Quick Save Load; se desativado, os clientes recarregam imediatamente.",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Permitir SL multijogador iniciado por clientes",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "Como host, permite que clientes apertem o atalho de Quick SL para solicitar um Quick Save Load sincronizado. Se desativado, os pedidos dos clientes sao recusados imediatamente.",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "Perguntar ao host quando cliente inicia SL",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Quando um cliente aperta o atalho de Quick SL, pergunta primeiro ao host; se desativado, o host segue direto para o fluxo de confirmacao dos clientes.",
   "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "Quick Save Load multijogador",
   "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "O host quer recarregar o save da partida atual. O Quick Save Load sera executado para todos depois que todos os clientes concordarem. Concorda?",
   "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "Concordar",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "Recusar"
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "Recusar",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.title": "Cliente solicita Quick Save Load",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.body": "Um cliente quer recarregar o save da partida atual. Depois que o host concordar, os outros clientes serao consultados e o Quick Save Load sera executado para todos. Concorda?",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.confirm": "Concordar",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.cancel": "Recusar"
 }

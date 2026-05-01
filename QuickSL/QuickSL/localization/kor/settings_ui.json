@@ -5,8 +5,16 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "멀티플레이",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "멀티플레이 SL 전에 클라이언트 확인",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "호스트일 때 Quick Save Load 전에 접속 중인 모든 클라이언트에게 확인합니다. 끄면 즉시 다시 불러오도록 알립니다.",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "클라이언트 시작 멀티플레이 SL 허용",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "호스트일 때 클라이언트가 빠른 SL 단축키로 동기화된 Quick Save Load를 요청할 수 있게 합니다. 끄면 클라이언트 요청을 즉시 거절합니다.",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "클라이언트 시작 SL에서 호스트 확인",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "클라이언트가 빠른 SL 단축키를 누르면 먼저 호스트에게 확인합니다. 끄면 호스트가 바로 클라이언트 확인 절차로 진행합니다.",
   "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "멀티플레이 Quick Save Load",
   "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "호스트가 현재 런 저장을 다시 불러오려고 합니다. 모든 클라이언트가 동의하면 모두에게 Quick Save Load가 실행됩니다. 동의하시겠습니까?",
   "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "동의",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "거절"
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "거절",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.title": "클라이언트 Quick Save Load 요청",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.body": "클라이언트가 현재 런 저장을 다시 불러오려고 합니다. 호스트가 동의하면 다른 클라이언트에게 확인한 뒤 모두에게 Quick Save Load가 실행됩니다. 동의하시겠습니까?",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.confirm": "동의",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.cancel": "거절"
 }

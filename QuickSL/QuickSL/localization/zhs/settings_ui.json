@@ -5,8 +5,16 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "多人",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "多人 SL 前询问客机",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "作为主机发起多人快速 SL 时，先弹窗询问所有已连接客机；关闭后会直接通知客机同步 SL。",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "允许客机发起多人 SL",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "作为主机时，允许客机按下快速 SL 热键来请求同步快速 SL；关闭后客机请求会被直接拒绝。",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "客机发起 SL 时询问主机",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "客机按下快速 SL 热键时，先弹窗询问主机是否同意；关闭后主机会直接进入客机确认流程。",
   "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "多人快速 SL",
   "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "主机请求重新载入当前局存档。所有客机同意后，本局会同步执行快速 SL。是否同意？",
   "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "同意",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "拒绝"
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "拒绝",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.title": "客机请求快速 SL",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.body": "一名客机请求重新载入当前局存档。主机同意后，会继续询问其他客机并同步执行快速 SL。是否同意？",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.confirm": "同意",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.cancel": "拒绝"
 }

@@ -5,8 +5,16 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Mehrspieler",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Clients vor Mehrspieler-SL fragen",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "Fragt als Host alle verbundenen Clients vor Quick Save Load; wenn deaktiviert, werden Clients direkt zum Neuladen aufgefordert.",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Clientgestartetes Mehrspieler-SL erlauben",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "Wenn du hostest, duerfen Clients per Quick-SL-Taste ein synchrones Quick Save Load anfordern. Wenn deaktiviert, werden Client-Anfragen direkt abgelehnt.",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "Host bei clientgestartetem SL fragen",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Wenn ein Client die Quick-SL-Taste drueckt, zuerst den Host fragen; wenn deaktiviert, startet der Host direkt die Client-Bestaetigung.",
   "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "Mehrspieler Quick Save Load",
   "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "Der Host moechte den aktuellen Spielstand neu laden. Quick Save Load wird fuer alle ausgefuehrt, nachdem alle Clients zugestimmt haben. Zustimmen?",
   "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "Zustimmen",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "Ablehnen"
+  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "Ablehnen",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.title": "Client bittet um Quick Save Load",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.body": "Ein Client moechte den aktuellen Spielstand neu laden. Nachdem der Host zustimmt, werden andere Clients gefragt und Quick Save Load wird fuer alle ausgefuehrt. Zustimmen?",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.confirm": "Zustimmen",
+  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.cancel": "Ablehnen"
 }

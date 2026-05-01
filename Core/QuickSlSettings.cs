@@ -9,6 +9,7 @@ public static class QuickSlSettings
     private const string KeybindGroup = "keybinds";
     private const string MultiplayerGroup = "multiplayer";
     private const string QuickSlConfigKey = "keybind.quick_sl";
+    private const string QuickSlDefaultControllerAction = "quicksl_controller_right_stick_press";
     private const ulong QuickSlDebounceMs = 1000UL;
 
     [UIToggle]
@@ -20,12 +21,32 @@ public static class QuickSlSettings
         Order = 10)]
     public static bool RequireMultiplayerClientConfirmation = true;
 
+    [UIToggle]
+    [Config(
+        "允许客机发起多人 SL",
+        group: MultiplayerGroup,
+        Description = "作为主机时，允许客机按下快速 SL 热键来请求同步快速 SL；关闭后客机请求会被直接拒绝。",
+        Key = "multiplayer.allow_client_initiated_sl",
+        Order = 15)]
+    public static bool AllowClientInitiatedQuickSl = true;
+
+    [UIToggle]
+    [Config(
+        "客机发起多人 SL 时询问主机",
+        group: MultiplayerGroup,
+        Description = "客机按下快速 SL 热键时，先弹窗询问主机是否同意；关闭后主机会直接进入客机确认流程。",
+        Key = "multiplayer.require_host_confirmation",
+        Order = 20)]
+    public static bool RequireMultiplayerHostConfirmation = true;
+
     [UIHotkey(
         "快速 SL",
         group: KeybindGroup,
         Key = QuickSlConfigKey,
         Description = "重新载入当前局的存档，效果等同于保存并退出后继续游戏。",
         DefaultKeyboard = Key.F5,
+        DefaultController = QuickSlDefaultControllerAction,
+        AllowController = true,
         ConsumeInput = true,
         ExactModifiers = true,
         DebounceMs = QuickSlDebounceMs,
@@ -33,5 +54,38 @@ public static class QuickSlSettings
     public static void QuickSl()
     {
         QuickSlService.RequestQuickSl();
+    }
+
+    public static void EnsureDefaultInputActions()
+    {
+        if (!InputMap.HasAction(QuickSlDefaultControllerAction))
+        {
+            InputMap.AddAction(QuickSlDefaultControllerAction);
+        }
+
+        if (HasDefaultControllerEvent())
+        {
+            return;
+        }
+
+        InputMap.ActionAddEvent(
+            QuickSlDefaultControllerAction,
+            new InputEventJoypadButton
+            {
+                ButtonIndex = JoyButton.RightStick
+            });
+    }
+
+    private static bool HasDefaultControllerEvent()
+    {
+        foreach (InputEvent inputEvent in InputMap.ActionGetEvents(QuickSlDefaultControllerAction))
+        {
+            if (inputEvent is InputEventJoypadButton { ButtonIndex: JoyButton.RightStick })
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

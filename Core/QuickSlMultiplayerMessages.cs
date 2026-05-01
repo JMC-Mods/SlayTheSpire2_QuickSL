@@ -9,7 +9,55 @@ internal enum QuickSlCancelReason : byte
 {
     Rejected = 0,
     Timeout = 1,
-    InvalidState = 2
+    InvalidState = 2,
+    Disabled = 3
+}
+
+internal struct QuickSlInitiateMessage : INetMessage
+{
+    public uint ClientRequestId;
+
+    public bool ShouldBroadcast => false;
+    public NetTransferMode Mode => NetTransferMode.Reliable;
+    public LogLevel LogLevel => LogLevel.Debug;
+
+    public void Serialize(PacketWriter writer)
+    {
+        writer.WriteUInt(ClientRequestId);
+    }
+
+    public void Deserialize(PacketReader reader)
+    {
+        ClientRequestId = reader.ReadUInt();
+    }
+}
+
+internal struct QuickSlInitiateResponseMessage : INetMessage
+{
+    public uint ClientRequestId;
+    public uint HostRequestId;
+    public bool Approved;
+    public QuickSlCancelReason Reason;
+
+    public bool ShouldBroadcast => false;
+    public NetTransferMode Mode => NetTransferMode.Reliable;
+    public LogLevel LogLevel => LogLevel.Debug;
+
+    public void Serialize(PacketWriter writer)
+    {
+        writer.WriteUInt(ClientRequestId);
+        writer.WriteUInt(HostRequestId);
+        writer.WriteBool(Approved);
+        writer.WriteByte((byte)Reason);
+    }
+
+    public void Deserialize(PacketReader reader)
+    {
+        ClientRequestId = reader.ReadUInt();
+        HostRequestId = reader.ReadUInt();
+        Approved = reader.ReadBool();
+        Reason = (QuickSlCancelReason)reader.ReadByte();
+    }
 }
 
 internal struct QuickSlRequestMessage : INetMessage
@@ -146,6 +194,44 @@ internal struct QuickSlLoadReadyMessage : INetMessage
 }
 
 internal struct QuickSlLoadBeginMessage : INetMessage
+{
+    public uint RequestId;
+
+    public bool ShouldBroadcast => false;
+    public NetTransferMode Mode => NetTransferMode.Reliable;
+    public LogLevel LogLevel => LogLevel.Debug;
+
+    public void Serialize(PacketWriter writer)
+    {
+        writer.WriteUInt(RequestId);
+    }
+
+    public void Deserialize(PacketReader reader)
+    {
+        RequestId = reader.ReadUInt();
+    }
+}
+
+internal struct QuickSlSetupReadyMessage : INetMessage
+{
+    public uint RequestId;
+
+    public bool ShouldBroadcast => false;
+    public NetTransferMode Mode => NetTransferMode.Reliable;
+    public LogLevel LogLevel => LogLevel.Debug;
+
+    public void Serialize(PacketWriter writer)
+    {
+        writer.WriteUInt(RequestId);
+    }
+
+    public void Deserialize(PacketReader reader)
+    {
+        RequestId = reader.ReadUInt();
+    }
+}
+
+internal struct QuickSlRunBeginMessage : INetMessage
 {
     public uint RequestId;
 
