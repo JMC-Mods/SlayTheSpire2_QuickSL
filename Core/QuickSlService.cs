@@ -122,12 +122,17 @@ public static class QuickSlService
             await game.Transition.FadeOut();
             fadedOut = true;
 
+            QuickSlSceneReloadGuard.PrepareCurrentHandForSceneSwap();
             runManager.CleanUp();
             cleanedUp = true;
 
             runManager.SetUpSavedSinglePlayer(runState, runSave);
             game.ReactionContainer.InitializeNetworking(new NetSingleplayerGameService());
-            await game.LoadRun(runState, runSave.PreFinishedRoom);
+            using (QuickSlSceneReloadGuard.SuppressLateHandLayoutRefresh())
+            {
+                await game.LoadRun(runState, runSave.PreFinishedRoom);
+            }
+
             await game.Transition.FadeIn();
 
             ModLogger.Info("快速 SL 完成。");

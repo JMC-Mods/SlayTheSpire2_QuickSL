@@ -3,6 +3,7 @@ using JmcModLib.Reflection;
 using JmcModLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Multiplayer;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Multiplayer.Game.Lobby;
 using MegaCrit.Sts2.Core.Multiplayer.Quality;
@@ -21,6 +22,8 @@ internal static class MultiplayerQuickSlCoordinator
 {
     private static readonly TimeSpan VoteTimeout = TimeSpan.FromSeconds(30);
 
+    private static readonly TimeSpan LoadBarrierTimeout = TimeSpan.FromSeconds(30);
+
     private static readonly SemaphoreSlim ReloadLock = new(1, 1);
 
     private static readonly MemberAccessor NetServiceAccessor =
@@ -29,9 +32,14 @@ internal static class MultiplayerQuickSlCoordinator
     private static readonly MemberAccessor RunLobbyConnectedPlayerIdsAccessor =
         MemberAccessor.Get(typeof(RunLobby), "_connectedPlayerIds");
 
+    private static readonly MemberAccessor CombatSyncCompletionSourceAccessor =
+        MemberAccessor.Get(typeof(CombatStateSynchronizer), "_syncCompletionSource");
+
     private static uint nextRequestId;
     private static INetGameService? registeredNetService;
     private static HostVoteState? hostVoteState;
+    private static HostLoadBarrierState? hostLoadBarrierState;
+    private static ClientLoadBarrierState? clientLoadBarrierState;
     private static uint? activeClientRequestId;
 
     public static void EnsureHandlersRegistered()
@@ -65,6 +73,12 @@ internal static class MultiplayerQuickSlCoordinator
             return;
         }
 
+        if (IsCombatStateSyncInProgress(runManager))
+        {
+            ModLogger.Warn("多人快速 SL 失败：当前多人状态同步尚未完成，请稍后再试。");
+            return;
+        }
+
         if (netService is not INetHostGameService hostService)
         {
             ModLogger.Warn($"多人快速 SL 失败：当前不是主机模式，NetService={netService.Type}。");
@@ -81,24 +95,12 @@ internal static class MultiplayerQuickSlCoordinator
         HashSet<ulong> connectedPlayerIds = GetConnectedRunPlayerIds(runManager, netService);
         ulong[] remotePlayerIds = [.. connectedPlayerIds.Where(playerId => playerId != netService.NetId)];
 
-        if (!QuickSlSettings.RequireMultiplayerClientConfirmation || remotePlayerIds.Length == 0)
+        if (remotePlayerIds.Length == 0)
         {
             SerializableRun? runSave = await LoadLocalMultiplayerRunSaveAsync(netService);
             if (runSave == null)
             {
                 return;
-            }
-
-            if (remotePlayerIds.Length > 0)
-            {
-                string? runSaveJson = TrySerializeRunSavePayload(runSave);
-                if (runSaveJson == null)
-                {
-                    return;
-                }
-
-                SendExecute(hostService, requestId, remotePlayerIds, connectedPlayerIds, runSaveJson);
-                ModLogger.Info($"多人快速 SL：已通知 {remotePlayerIds.Length} 个客机同步执行。");
             }
 
             await ExecuteLocalMultiplayerQuickSlAsync(requestId, connectedPlayerIds, runSave);
@@ -114,16 +116,17 @@ internal static class MultiplayerQuickSlCoordinator
             var requestMessage = new QuickSlRequestMessage
             {
                 RequestId = requestId,
-                RequiresClientConfirmation = true
+                RequiresClientConfirmation = QuickSlSettings.RequireMultiplayerClientConfirmation
             };
 
             foreach (ulong playerId in remotePlayerIds)
             {
-                hostService.SendMessage(requestMessage, playerId);
+                TrySendHostMessage(hostService, requestMessage, playerId);
             }
 
             _ = RunVoteTimeoutAsync(voteState);
-            ModLogger.Info($"多人快速 SL：已向 {remotePlayerIds.Length} 个客机发送确认请求，请等待所有人同意。");
+            string requestMode = QuickSlSettings.RequireMultiplayerClientConfirmation ? "确认请求" : "静默准备请求";
+            ModLogger.Info($"多人快速 SL：已向 {remotePlayerIds.Length} 个客机发送{requestMode}，请等待所有人就绪。");
 
             bool approved = await voteState.Completion.Task;
             if (!approved)
@@ -149,8 +152,13 @@ internal static class MultiplayerQuickSlCoordinator
                 return;
             }
 
-            SendExecute(hostService, requestId, remotePlayerIds, voteState.ConnectedPlayerIds, runSaveJson);
-            await ExecuteLocalMultiplayerQuickSlAsync(requestId, voteState.ConnectedPlayerIds, runSave);
+            await ExecuteApprovedHostReloadAsync(
+                hostService,
+                requestId,
+                remotePlayerIds,
+                voteState.ConnectedPlayerIds,
+                runSave,
+                runSaveJson);
         }
         finally
         {
@@ -174,6 +182,8 @@ internal static class MultiplayerQuickSlCoordinator
         netService.RegisterMessageHandler<QuickSlRequestMessage>(HandleQuickSlRequest);
         netService.RegisterMessageHandler<QuickSlVoteMessage>(HandleQuickSlVote);
         netService.RegisterMessageHandler<QuickSlExecuteMessage>(HandleQuickSlExecute);
+        netService.RegisterMessageHandler<QuickSlLoadReadyMessage>(HandleQuickSlLoadReady);
+        netService.RegisterMessageHandler<QuickSlLoadBeginMessage>(HandleQuickSlLoadBegin);
         netService.RegisterMessageHandler<QuickSlCancelMessage>(HandleQuickSlCancel);
         netService.Disconnected += HandleRegisteredNetServiceDisconnected;
         ModLogger.Debug($"多人快速 SL：已注册网络消息处理器，模式={netService.Type}。");
@@ -189,6 +199,8 @@ internal static class MultiplayerQuickSlCoordinator
         registeredNetService.UnregisterMessageHandler<QuickSlRequestMessage>(HandleQuickSlRequest);
         registeredNetService.UnregisterMessageHandler<QuickSlVoteMessage>(HandleQuickSlVote);
         registeredNetService.UnregisterMessageHandler<QuickSlExecuteMessage>(HandleQuickSlExecute);
+        registeredNetService.UnregisterMessageHandler<QuickSlLoadReadyMessage>(HandleQuickSlLoadReady);
+        registeredNetService.UnregisterMessageHandler<QuickSlLoadBeginMessage>(HandleQuickSlLoadBegin);
         registeredNetService.UnregisterMessageHandler<QuickSlCancelMessage>(HandleQuickSlCancel);
         registeredNetService.Disconnected -= HandleRegisteredNetServiceDisconnected;
         registeredNetService = null;
@@ -198,14 +210,31 @@ internal static class MultiplayerQuickSlCoordinator
     {
         hostVoteState?.Cancel(QuickSlCancelReason.InvalidState);
         hostVoteState = null;
+        hostLoadBarrierState?.Cancel();
+        hostLoadBarrierState = null;
+        clientLoadBarrierState?.Cancel();
+        clientLoadBarrierState = null;
         activeClientRequestId = null;
         ModLogger.Debug($"多人快速 SL：当前网络服务已断开，原因={info.GetReason()}。");
     }
 
     private static void HandleQuickSlRequest(QuickSlRequestMessage message, ulong senderId)
     {
-        if (!TryGetValidatedMultiplayerContext(requireHost: false, out _, out _, out INetGameService? netService))
+        if (!TryGetValidatedMultiplayerContext(requireHost: false, out _, out RunManager? runManager, out INetGameService? netService))
         {
+            if (TryGetCurrentClientServiceForHost(senderId, out _))
+            {
+                SendClientVote(message.RequestId, approved: false);
+                ModLogger.Warn($"多人快速 SL：当前状态无法响应主机请求，已拒绝 RequestId={message.RequestId}。");
+            }
+
+            return;
+        }
+
+        if (IsCombatStateSyncInProgress(runManager))
+        {
+            ModLogger.Warn("多人快速 SL：当前多人状态同步尚未完成，已拒绝主机请求。");
+            SendClientVote(message.RequestId, approved: false);
             return;
         }
 
@@ -287,6 +316,40 @@ internal static class MultiplayerQuickSlCoordinator
         _ = ExecuteLocalMultiplayerQuickSlAsync(message.RequestId, message.ConnectedPlayerIds, runSave);
     }
 
+    private static void HandleQuickSlLoadReady(QuickSlLoadReadyMessage message, ulong senderId)
+    {
+        if (RunManager.Instance.NetService.Type != NetGameType.Host)
+        {
+            return;
+        }
+
+        HostLoadBarrierState? barrierState = hostLoadBarrierState;
+        if (barrierState == null || barrierState.RequestId != message.RequestId)
+        {
+            ModLogger.Warn($"多人快速 SL：收到过期或未知的载入就绪消息，RequestId={message.RequestId}，Sender={senderId}。");
+            return;
+        }
+
+        barrierState.MarkReady(senderId);
+    }
+
+    private static void HandleQuickSlLoadBegin(QuickSlLoadBeginMessage message, ulong senderId)
+    {
+        if (!IsExecuteSenderValid(senderId))
+        {
+            return;
+        }
+
+        ClientLoadBarrierState? barrierState = clientLoadBarrierState;
+        if (barrierState == null || barrierState.RequestId != message.RequestId)
+        {
+            ModLogger.Warn($"多人快速 SL：收到过期或未知的开始载入消息，RequestId={message.RequestId}，Sender={senderId}。");
+            return;
+        }
+
+        barrierState.Begin();
+    }
+
     private static void HandleQuickSlCancel(QuickSlCancelMessage message, ulong senderId)
     {
         if (!IsExecuteSenderValid(senderId))
@@ -297,6 +360,12 @@ internal static class MultiplayerQuickSlCoordinator
         if (activeClientRequestId == message.RequestId)
         {
             activeClientRequestId = null;
+        }
+
+        if (clientLoadBarrierState?.RequestId == message.RequestId)
+        {
+            clientLoadBarrierState.Cancel();
+            clientLoadBarrierState = null;
         }
 
         ModLogger.Warn($"多人快速 SL：主机取消了本次 SL，原因={message.Reason}。");
@@ -354,6 +423,12 @@ internal static class MultiplayerQuickSlCoordinator
     private static void SendClientVote(uint requestId, bool approved)
     {
         INetGameService netService = RunManager.Instance.NetService;
+        if (!netService.IsConnected)
+        {
+            ModLogger.Warn($"多人快速 SL：当前网络服务已断开，无法发送确认结果 RequestId={requestId}。");
+            return;
+        }
+
         netService.SendMessage(new QuickSlVoteMessage
         {
             RequestId = requestId,
@@ -377,6 +452,38 @@ internal static class MultiplayerQuickSlCoordinator
         catch (Exception ex)
         {
             ModLogger.Error("多人快速 SL：等待客机确认超时时发生错误。", ex);
+        }
+    }
+
+    private static async Task ExecuteApprovedHostReloadAsync(
+        INetHostGameService hostService,
+        uint requestId,
+        IReadOnlyCollection<ulong> remotePlayerIds,
+        IReadOnlyCollection<ulong> connectedPlayerIds,
+        SerializableRun runSave,
+        string runSaveJson)
+    {
+        HostLoadBarrierState? loadBarrierState = remotePlayerIds.Count > 0
+            ? new HostLoadBarrierState(requestId, remotePlayerIds)
+            : null;
+
+        if (loadBarrierState != null)
+        {
+            hostLoadBarrierState = loadBarrierState;
+        }
+
+        try
+        {
+            SendExecute(hostService, requestId, remotePlayerIds, connectedPlayerIds, runSaveJson);
+            ModLogger.Info($"多人快速 SL：已通知 {remotePlayerIds.Count} 个客机同步执行。");
+            await ExecuteLocalMultiplayerQuickSlAsync(requestId, connectedPlayerIds, runSave);
+        }
+        finally
+        {
+            if (ReferenceEquals(hostLoadBarrierState, loadBarrierState))
+            {
+                hostLoadBarrierState = null;
+            }
         }
     }
 
@@ -469,6 +576,87 @@ internal static class MultiplayerQuickSlCoordinator
         }
     }
 
+    private static async Task WaitForCoordinatedLoadBeginAsync(
+        uint requestId,
+        INetGameService netService,
+        IReadOnlyCollection<ulong> connectedPlayerIds)
+    {
+        if (netService.Type == NetGameType.Host)
+        {
+            await WaitForClientsReadyToLoadAsync(requestId, netService, connectedPlayerIds);
+            return;
+        }
+
+        if (netService.Type == NetGameType.Client)
+        {
+            await WaitForHostBeginLoadAsync(requestId, netService);
+        }
+    }
+
+    private static async Task WaitForClientsReadyToLoadAsync(
+        uint requestId,
+        INetGameService netService,
+        IReadOnlyCollection<ulong> connectedPlayerIds)
+    {
+        if (netService is not INetHostGameService hostService)
+        {
+            return;
+        }
+
+        ulong[] remotePlayerIds = [.. connectedPlayerIds.Where(playerId => playerId != netService.NetId)];
+        if (remotePlayerIds.Length == 0)
+        {
+            return;
+        }
+
+        HostLoadBarrierState barrierState = hostLoadBarrierState?.RequestId == requestId
+            ? hostLoadBarrierState
+            : new HostLoadBarrierState(requestId, remotePlayerIds);
+        if (!ReferenceEquals(hostLoadBarrierState, barrierState))
+        {
+            hostLoadBarrierState = barrierState;
+        }
+
+        ModLogger.Debug($"多人快速 SL：等待 {remotePlayerIds.Length} 个客机完成载入准备，RequestId={requestId}。");
+        await barrierState.WaitAsync(LoadBarrierTimeout);
+
+        var beginMessage = new QuickSlLoadBeginMessage
+        {
+            RequestId = requestId
+        };
+
+        foreach (ulong playerId in remotePlayerIds)
+        {
+            TrySendHostMessage(hostService, beginMessage, playerId);
+        }
+
+        ModLogger.Debug($"多人快速 SL：所有客机已准备完毕，开始同步载入，RequestId={requestId}。");
+    }
+
+    private static async Task WaitForHostBeginLoadAsync(uint requestId, INetGameService netService)
+    {
+        var barrierState = new ClientLoadBarrierState(requestId);
+        clientLoadBarrierState = barrierState;
+
+        try
+        {
+            netService.SendMessage(new QuickSlLoadReadyMessage
+            {
+                RequestId = requestId
+            });
+
+            ModLogger.Debug($"多人快速 SL：已向主机报告载入准备完成，RequestId={requestId}。");
+            await barrierState.WaitAsync(LoadBarrierTimeout);
+        }
+        finally
+        {
+            if (ReferenceEquals(clientLoadBarrierState, barrierState))
+            {
+                clientLoadBarrierState = null;
+            }
+        }
+    }
+
     private static async Task ExecuteLocalMultiplayerQuickSlAsync(
         uint requestId,
         IReadOnlyCollection<ulong>? connectedPlayerIdsOverride = null,
@@ -513,6 +701,9 @@ internal static class MultiplayerQuickSlCoordinator
             await game.Transition.FadeOut();
             fadedOut = true;
 
+            QuickSlSceneReloadGuard.PrepareCurrentHandForSceneSwap();
+            DisposeNetworkPreservedRunSystems(runManager);
+
             var protectedNetService = new DisconnectSuppressingNetGameService(originalNetService);
             NetServiceAccessor.SetValue(runManager, protectedNetService);
             try
@@ -530,11 +721,17 @@ internal static class MultiplayerQuickSlCoordinator
             game.RemoteCursorContainer.Initialize(loadLobby.InputSynchronizer, loadLobby.ConnectedPlayerIds);
             game.ReactionContainer.InitializeNetworking(loadLobby.NetService);
 
+            await WaitForCoordinatedLoadBeginAsync(requestId, originalNetService, connectedPlayerIds);
+
             runManager.SetUpSavedMultiPlayer(runState, loadLobby);
             KeepOnlyConnectedPlayersInRunLobby(runManager, loadLobby.ConnectedPlayerIds);
             EnsureHandlersRegistered();
 
-            await game.LoadRun(runState, runSave.PreFinishedRoom);
+            using (QuickSlSceneReloadGuard.SuppressLateHandLayoutRefresh())
+            {
+                await game.LoadRun(runState, runSave.PreFinishedRoom);
+            }
+
             loadLobby.CleanUp(disconnectSession: false);
             loadLobby = null;
 
@@ -611,6 +808,49 @@ internal static class MultiplayerQuickSlCoordinator
         }
 
         return true;
+    }
+
+    private static bool TryGetCurrentClientServiceForHost(
+        ulong senderId,
+        [NotNullWhen(true)]
+        out INetClientGameService? clientService)
+    {
+        clientService = null;
+
+        try
+        {
+            if (RunManager.Instance?.NetService is INetClientGameService currentClientService &&
+                currentClientService.Type == NetGameType.Client &&
+                currentClientService.IsConnected &&
+                currentClientService.NetClient?.HostNetId == senderId)
+            {
+                clientService = currentClientService;
+                return true;
+            }
+        }
+        catch (Exception ex)
+        {
+            ModLogger.Debug($"多人快速 SL：检查当前客机网络服务失败：{ex.Message}");
+        }
+
+        return false;
+    }
+
+    private static bool IsCombatStateSyncInProgress(RunManager runManager)
+    {
+        try
+        {
+            if (CombatSyncCompletionSourceAccessor.GetValue(runManager.CombatStateSynchronizer) is TaskCompletionSource completionSource)
+            {
+                return !completionSource.Task.IsCompleted;
+            }
+        }
+        catch (Exception ex)
+        {
+            ModLogger.Debug($"多人快速 SL：检查多人状态同步状态失败：{ex.Message}");
+        }
+
+        return false;
     }
 
     private static HashSet<ulong> GetConnectedRunPlayerIds(RunManager runManager, INetGameService netService)
@@ -690,6 +930,32 @@ internal static class MultiplayerQuickSlCoordinator
         }
     }
 
+    private static void DisposeNetworkPreservedRunSystems(RunManager runManager)
+    {
+        TryDisposeRunSystem("CombatStateSynchronizer", runManager.CombatStateSynchronizer);
+        TryDisposeRunSystem("EventSynchronizer", runManager.EventSynchronizer);
+        TryDisposeRunSystem("OneOffSynchronizer", runManager.OneOffSynchronizer);
+        TryDisposeRunSystem("InputSynchronizer", runManager.InputSynchronizer);
+    }
+
+    private static void TryDisposeRunSystem(string name, IDisposable? disposable)
+    {
+        if (disposable == null)
+        {
+            return;
+        }
+
+        try
+        {
+            disposable.Dispose();
+            ModLogger.Debug($"多人快速 SL：已清理旧局网络同步器 {name}。");
+        }
+        catch (Exception ex)
+        {
+            ModLogger.Warn($"多人快速 SL：清理旧局网络同步器 {name} 时出现异常：{ex}");
+        }
+    }
+
     private static void SendExecute(
         INetHostGameService hostService,
         uint requestId,
@@ -706,7 +972,7 @@ internal static class MultiplayerQuickSlCoordinator
 
         foreach (ulong playerId in remotePlayerIds)
         {
-            hostService.SendMessage(executeMessage, playerId);
+            TrySendHostMessage(hostService, executeMessage, playerId);
         }
     }
 
@@ -720,7 +986,26 @@ internal static class MultiplayerQuickSlCoordinator
 
         foreach (ulong playerId in voteState.ExpectedVotes)
         {
-            hostService.SendMessage(cancelMessage, playerId);
+            TrySendHostMessage(hostService, cancelMessage, playerId);
+        }
+    }
+
+    private static void TrySendHostMessage<T>(INetHostGameService hostService, T message, ulong playerId)
+        where T : INetMessage
+    {
+        if (!hostService.IsConnected)
+        {
+            ModLogger.Warn($"多人快速 SL：主机网络服务已断开，跳过发送 {typeof(T).Name} 给 {playerId}。");
+            return;
+        }
+
+        try
+        {
+            hostService.SendMessage(message, playerId);
+        }
+        catch (Exception ex)
+        {
+            ModLogger.Warn($"多人快速 SL：发送 {typeof(T).Name} 给 {playerId} 失败：{ex.Message}");
         }
     }
 
@@ -805,6 +1090,99 @@ internal static class MultiplayerQuickSlCoordinator
         public void Cancel(QuickSlCancelReason reason)
         {
             CancelReason = reason;
+            Completion.TrySetResult(false);
+        }
+    }
+
+    private sealed class HostLoadBarrierState
+    {
+        public HostLoadBarrierState(uint requestId, IEnumerable<ulong> expectedPlayers)
+        {
+            RequestId = requestId;
+            ExpectedPlayers = [.. expectedPlayers];
+        }
+
+        public uint RequestId { get; }
+
+        public HashSet<ulong> ExpectedPlayers { get; }
+
+        public HashSet<ulong> ReadyPlayers { get; } = [];
+
+        private TaskCompletionSource<bool> Completion { get; } =
+            new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        public void MarkReady(ulong playerId)
+        {
+            if (!ExpectedPlayers.Contains(playerId))
+            {
+                ModLogger.Warn($"多人快速 SL：收到非预期玩家 {playerId} 的载入就绪消息，已忽略。");
+                return;
+            }
+
+            if (ReadyPlayers.Add(playerId))
+            {
+                ModLogger.Debug($"多人快速 SL：玩家 {playerId} 已完成载入准备，进度 {ReadyPlayers.Count}/{ExpectedPlayers.Count}。");
+            }
+
+            if (ReadyPlayers.Count >= ExpectedPlayers.Count)
+            {
+                Completion.TrySetResult(true);
+            }
+        }
+
+        public async Task WaitAsync(TimeSpan timeout)
+        {
+            if (ReadyPlayers.Count >= ExpectedPlayers.Count)
+            {
+                return;
+            }
+
+            Task completedTask = await Task.WhenAny(Completion.Task, Task.Delay(timeout));
+            if (!ReferenceEquals(completedTask, Completion.Task))
+            {
+                throw new TimeoutException($"等待客机载入准备超时，RequestId={RequestId}。");
+            }
+
+            if (!await Completion.Task)
+            {
+                throw new InvalidOperationException($"载入准备等待被取消，RequestId={RequestId}。");
+            }
+        }
+
+        public void Cancel()
+        {
+            Completion.TrySetResult(false);
+        }
+    }
+
+    private sealed class ClientLoadBarrierState(uint requestId)
+    {
+        public uint RequestId { get; } = requestId;
+
+        private TaskCompletionSource<bool> Completion { get; } =
+            new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        public async Task WaitAsync(TimeSpan timeout)
+        {
+            Task completedTask = await Task.WhenAny(Completion.Task, Task.Delay(timeout));
+            if (!ReferenceEquals(completedTask, Completion.Task))
+            {
+                throw new TimeoutException($"等待主机开始载入超时，RequestId={RequestId}。");
+            }
+
+            if (!await Completion.Task)
+            {
+                throw new InvalidOperationException($"等待主机开始载入被取消，RequestId={RequestId}。");
+            }
+        }
+
+        public void Begin()
+        {
+            Completion.TrySetResult(true);
+        }
+
+        public void Cancel()
+        {
             Completion.TrySetResult(false);
         }
     }

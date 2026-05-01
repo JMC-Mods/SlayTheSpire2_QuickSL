@@ -126,6 +126,44 @@ internal struct QuickSlExecuteMessage : INetMessage
     }
 }
 
+internal struct QuickSlLoadReadyMessage : INetMessage
+{
+    public uint RequestId;
+
+    public bool ShouldBroadcast => false;
+    public NetTransferMode Mode => NetTransferMode.Reliable;
+    public LogLevel LogLevel => LogLevel.Debug;
+
+    public void Serialize(PacketWriter writer)
+    {
+        writer.WriteUInt(RequestId);
+    }
+
+    public void Deserialize(PacketReader reader)
+    {
+        RequestId = reader.ReadUInt();
+    }
+}
+
+internal struct QuickSlLoadBeginMessage : INetMessage
+{
+    public uint RequestId;
+
+    public bool ShouldBroadcast => false;
+    public NetTransferMode Mode => NetTransferMode.Reliable;
+    public LogLevel LogLevel => LogLevel.Debug;
+
+    public void Serialize(PacketWriter writer)
+    {
+        writer.WriteUInt(RequestId);
+    }
+
+    public void Deserialize(PacketReader reader)
+    {
+        RequestId = reader.ReadUInt();
+    }
+}
+
 internal struct QuickSlCancelMessage : INetMessage
 {
     public uint RequestId;

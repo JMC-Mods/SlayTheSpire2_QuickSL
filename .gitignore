@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Local Codex project instructions link
+AGENTS.md
+
 # User-specific files
 *.rsuser
 *.suo
