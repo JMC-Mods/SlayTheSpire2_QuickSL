@@ -8,13 +8,5 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "อนุญาต SL ผู้เล่นหลายคนจากลูกข่าย",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "เมื่อเป็นโฮสต์ อนุญาตให้ลูกข่ายกดปุ่มลัด Quick SL เพื่อขอ Quick Save Load แบบซิงค์ หากปิด คำขอจากลูกข่ายจะถูกปฏิเสธทันที",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "ถามโฮสต์เมื่อไคลเอนต์เริ่ม SL",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "เมื่อลูกข่ายกดปุ่มลัด Quick SL ให้ถามโฮสต์ก่อน หากปิด โฮสต์จะไปยังขั้นตอนยืนยันของลูกข่ายทันที",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "Quick Save Load ผู้เล่นหลายคน",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "โฮสต์ต้องการโหลดเซฟรันปัจจุบันใหม่ Quick Save Load จะทำงานกับทุกคนหลังจากลูกข่ายทุกคนยอมรับ คุณยอมรับหรือไม่?",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "ยอมรับ",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "ปฏิเสธ",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.title": "ลูกข่ายขอ Quick Save Load",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.body": "ลูกข่ายต้องการโหลดเซฟรันปัจจุบันใหม่ หลังจากโฮสต์ยอมรับ จะถามลูกข่ายอื่น ๆ แล้ว Quick Save Load จะทำงานกับทุกคน คุณยอมรับหรือไม่?",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.confirm": "ยอมรับ",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.cancel": "ปฏิเสธ"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "เมื่อลูกข่ายกดปุ่มลัด Quick SL ให้ถามโฮสต์ก่อน หากปิด โฮสต์จะไปยังขั้นตอนยืนยันของลูกข่ายทันที"
 }

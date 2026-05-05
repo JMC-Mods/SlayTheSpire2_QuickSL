@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
 
     <!-- Mod 基础信息 -->
     <ModName>$(MSBuildProjectName)</ModName>
@@ -27,6 +27,7 @@
     <ModDir>$(Sts2Path)\mods</ModDir>
     <!-- 游戏最终加载的 mods 目录 -->
     <ModGameDir>$(ModDir)\$(ModName)</ModGameDir>
+    <PromptLaunchGameAfterBuild>true</PromptLaunchGameAfterBuild>
 
   </PropertyGroup>
   <Import Project="$(ModDir)\JmcModLib\JmcModLib.Sts2.props" />
@@ -145,7 +146,7 @@ texture_format/etc2=false
   </Target>
 
   <!-- 弹窗询问启动游戏 -->
-  <Target Name="AskToLaunchGame" AfterTargets="BuildAndDeploy">
+  <Target Name="AskToLaunchGame" AfterTargets="BuildAndDeploy" Condition="'$(PromptLaunchGameAfterBuild)' != 'false'">
     <!-- 确保游戏环境就绪：生成 steam_appid.txt (只在文件不存在时创建)，防止游戏拦截 -->
     <WriteLinesToFile File="$(Sts2Path)\steam_appid.txt" Lines="2868840" Overwrite="false" Encoding="ASCII" Condition="!Exists('$(Sts2Path)\steam_appid.txt')" />
 

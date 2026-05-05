@@ -2,7 +2,7 @@
   "id": "QuickSL",
   "name": "QuickSL",
   "author": "JMC",
-  "version": "1.0.5",
+  "version": "1.0.10",
   "description": "提供可配置热键的快速 SL：重新载入当前局存档，效果等同于保存并退出后继续游戏。",
   "has_pck": true,
   "has_dll": true,

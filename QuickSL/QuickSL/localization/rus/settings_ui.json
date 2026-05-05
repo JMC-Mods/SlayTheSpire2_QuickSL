@@ -8,13 +8,5 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Разрешить сетевой SL от клиентов",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "Если вы хост, клиенты могут нажать горячую клавишу Quick SL и запросить синхронный Quick Save Load. Если выключено, запросы клиентов сразу отклоняются.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "Спрашивать хоста при SL от клиента",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Когда клиент нажимает горячую клавишу Quick SL, сначала спрашивает хоста; если выключено, хост сразу переходит к подтверждению клиентов.",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "Сетевой Quick Save Load",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "Хост хочет перезагрузить сохранение текущего забега. Quick Save Load выполнится у всех после согласия всех клиентов. Согласиться?",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "Согласиться",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "Отказаться",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.title": "Клиент просит Quick Save Load",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.body": "Клиент хочет перезагрузить сохранение текущего забега. После согласия хоста будут спрошены остальные клиенты, и Quick Save Load выполнится у всех. Согласиться?",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.confirm": "Согласиться",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.cancel": "Отказаться"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Когда клиент нажимает горячую клавишу Quick SL, сначала спрашивает хоста; если выключено, хост сразу переходит к подтверждению клиентов."
 }

@@ -8,13 +8,5 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Allow client-initiated multiplayer SL",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "When hosting, allow clients to press the Quick Save Load hotkey to request a synchronized Quick Save Load. When disabled, client requests are rejected immediately.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "Ask host for client-initiated SL",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "When a client presses the Quick Save Load hotkey, ask the host first; when disabled, the host proceeds directly to the client confirmation flow.",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "Multiplayer Quick Save Load",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "The host wants to reload the current run save. Quick Save Load will run for everyone after all clients agree. Do you agree?",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "Agree",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "Decline",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.title": "Client Requests Quick Save Load",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.body": "A client wants to reload the current run save. After the host agrees, other clients will be asked and Quick Save Load will run for everyone. Do you agree?",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.confirm": "Agree",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.cancel": "Decline"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "When a client presses the Quick Save Load hotkey, ask the host first; when disabled, the host proceeds directly to the client confirmation flow."
 }

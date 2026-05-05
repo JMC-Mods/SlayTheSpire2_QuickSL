@@ -8,13 +8,5 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Consenti SL multigiocatore avviato dai client",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "Come host, consente ai client di premere il tasto Quick SL per richiedere un Quick Save Load sincronizzato. Se disattivato, le richieste dei client vengono rifiutate subito.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "Chiedi all'host per SL avviato da client",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Quando un client preme il tasto Quick SL, chiede prima all'host; se disattivato, l'host passa direttamente al flusso di conferma dei client.",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "Quick Save Load multigiocatore",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "L'host vuole ricaricare il salvataggio della partita attuale. Quick Save Load verra eseguito per tutti dopo l'approvazione di tutti i client. Accetti?",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "Accetta",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "Rifiuta",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.title": "Un client richiede Quick Save Load",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.body": "Un client vuole ricaricare il salvataggio della partita attuale. Dopo l'approvazione dell'host, verranno consultati gli altri client e Quick Save Load sara eseguito per tutti. Accetti?",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.confirm": "Accetta",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.cancel": "Rifiuta"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Quando un client preme il tasto Quick SL, chiede prima all'host; se disattivato, l'host passa direttamente al flusso di conferma dei client."
 }

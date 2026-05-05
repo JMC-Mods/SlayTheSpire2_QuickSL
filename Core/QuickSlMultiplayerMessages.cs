@@ -32,12 +32,32 @@ internal struct QuickSlInitiateMessage : INetMessage
     }
 }
 
+internal struct QuickSlInitiatePendingMessage : INetMessage
+{
+    public uint ClientRequestId;
+
+    public bool ShouldBroadcast => false;
+    public NetTransferMode Mode => NetTransferMode.Reliable;
+    public LogLevel LogLevel => LogLevel.Debug;
+
+    public void Serialize(PacketWriter writer)
+    {
+        writer.WriteUInt(ClientRequestId);
+    }
+
+    public void Deserialize(PacketReader reader)
+    {
+        ClientRequestId = reader.ReadUInt();
+    }
+}
+
 internal struct QuickSlInitiateResponseMessage : INetMessage
 {
     public uint ClientRequestId;
     public uint HostRequestId;
     public bool Approved;
     public QuickSlCancelReason Reason;
+    public bool WaitingForOtherPlayers;
 
     public bool ShouldBroadcast => false;
     public NetTransferMode Mode => NetTransferMode.Reliable;
@@ -49,6 +69,7 @@ internal struct QuickSlInitiateResponseMessage : INetMessage
         writer.WriteUInt(HostRequestId);
         writer.WriteBool(Approved);
         writer.WriteByte((byte)Reason);
+        writer.WriteBool(WaitingForOtherPlayers);
     }
 
     public void Deserialize(PacketReader reader)
@@ -57,6 +78,7 @@ internal struct QuickSlInitiateResponseMessage : INetMessage
         HostRequestId = reader.ReadUInt();
         Approved = reader.ReadBool();
         Reason = (QuickSlCancelReason)reader.ReadByte();
+        WaitingForOtherPlayers = reader.ReadBool();
     }
 }
 
@@ -64,6 +86,7 @@ internal struct QuickSlRequestMessage : INetMessage
 {
     public uint RequestId;
     public bool RequiresClientConfirmation;
+    public ulong InitiatorPlayerId;
 
     public bool ShouldBroadcast => false;
     public NetTransferMode Mode => NetTransferMode.Reliable;
@@ -73,12 +96,14 @@ internal struct QuickSlRequestMessage : INetMessage
     {
         writer.WriteUInt(RequestId);
         writer.WriteBool(RequiresClientConfirmation);
+        writer.WriteULong(InitiatorPlayerId);
     }
 
     public void Deserialize(PacketReader reader)
     {
         RequestId = reader.ReadUInt();
         RequiresClientConfirmation = reader.ReadBool();
+        InitiatorPlayerId = reader.ReadULong();
     }
 }
 
@@ -254,6 +279,7 @@ internal struct QuickSlCancelMessage : INetMessage
 {
     public uint RequestId;
     public QuickSlCancelReason Reason;
+    public ulong RelatedPlayerId;
 
     public bool ShouldBroadcast => false;
     public NetTransferMode Mode => NetTransferMode.Reliable;
@@ -263,11 +289,13 @@ internal struct QuickSlCancelMessage : INetMessage
     {
         writer.WriteUInt(RequestId);
         writer.WriteByte((byte)Reason);
+        writer.WriteULong(RelatedPlayerId);
     }
 
     public void Deserialize(PacketReader reader)
     {
         RequestId = reader.ReadUInt();
         Reason = (QuickSlCancelReason)reader.ReadByte();
+        RelatedPlayerId = reader.ReadULong();
     }
 }

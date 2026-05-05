@@ -9,7 +9,6 @@ public static class QuickSlSettings
     private const string KeybindGroup = "keybinds";
     private const string MultiplayerGroup = "multiplayer";
     private const string QuickSlConfigKey = "keybind.quick_sl";
-    private const string QuickSlDefaultControllerAction = "quicksl_controller_right_stick_press";
     private const ulong QuickSlDebounceMs = 1000UL;
 
     [UIToggle]
@@ -45,8 +44,6 @@ public static class QuickSlSettings
         Key = QuickSlConfigKey,
         Description = "重新载入当前局的存档，效果等同于保存并退出后继续游戏。",
         DefaultKeyboard = Key.F5,
-        DefaultController = QuickSlDefaultControllerAction,
-        AllowController = true,
         ConsumeInput = true,
         ExactModifiers = true,
         DebounceMs = QuickSlDebounceMs,
@@ -54,38 +51,5 @@ public static class QuickSlSettings
     public static void QuickSl()
     {
         QuickSlService.RequestQuickSl();
-    }
-
-    public static void EnsureDefaultInputActions()
-    {
-        if (!InputMap.HasAction(QuickSlDefaultControllerAction))
-        {
-            InputMap.AddAction(QuickSlDefaultControllerAction);
-        }
-
-        if (HasDefaultControllerEvent())
-        {
-            return;
-        }
-
-        InputMap.ActionAddEvent(
-            QuickSlDefaultControllerAction,
-            new InputEventJoypadButton
-            {
-                ButtonIndex = JoyButton.RightStick
-            });
-    }
-
-    private static bool HasDefaultControllerEvent()
-    {
-        foreach (InputEvent inputEvent in InputMap.ActionGetEvents(QuickSlDefaultControllerAction))
-        {
-            if (inputEvent is InputEventJoypadButton { ButtonIndex: JoyButton.RightStick })
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

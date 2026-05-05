@@ -15,15 +15,6 @@ public partial class MainFile : Node
         var registry = JmcModLib.Core.ModRegistry.Register(true, VersionInfo.Name, VersionInfo.Name, VersionInfo.Version)?
             .RegisterLogger(uIFlags: LogConfigUIFlags.All);
 
-        try
-        {
-            QuickSlSettings.EnsureDefaultInputActions();
-        }
-        catch (Exception ex)
-        {
-            ModLogger.Warn($"注册默认手柄热键失败：{ex.Message}");
-        }
-
         registry?
             .UseConfig()
             .Done();

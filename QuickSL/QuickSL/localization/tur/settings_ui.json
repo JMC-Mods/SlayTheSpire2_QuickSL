@@ -8,13 +8,5 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Istemcinin baslattigi cok oyunculu SLye izin ver",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "Host iken istemcilerin Quick SL kisayoluna basip senkronize Quick Save Load istemesine izin verir. Kapaliysa istemci istekleri hemen reddedilir.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "Istemci SL baslatinca hosta sor",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Bir istemci Quick SL kisayoluna bastiginda once hosta sorar; kapaliysa host dogrudan istemci onay akisina gecer.",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.title": "Cok oyunculu Quick Save Load",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.body": "Host gecerli kosu kaydini yeniden yuklemek istiyor. Tum istemciler kabul ettikten sonra Quick Save Load herkes icin calisir. Kabul ediyor musun?",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.confirm": "Kabul et",
-  "EXTENSION.QUICKSL.MULTIPLAYER_CONFIRM.cancel": "Reddet",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.title": "Istemci Quick Save Load istiyor",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.body": "Bir istemci gecerli kosu kaydini yeniden yuklemek istiyor. Host kabul ettikten sonra diger istemcilere sorulur ve Quick Save Load herkes icin calisir. Kabul ediyor musun?",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.confirm": "Kabul et",
-  "EXTENSION.QUICKSL.MULTIPLAYER_HOST_CONFIRM.cancel": "Reddet"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Bir istemci Quick SL kisayoluna bastiginda once hosta sorar; kapaliysa host dogrudan istemci onay akisina gecer."
 }
