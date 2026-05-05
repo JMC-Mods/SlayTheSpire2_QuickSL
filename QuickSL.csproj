@@ -27,6 +27,8 @@
     <ModDir>$(Sts2Path)\mods</ModDir>
     <!-- 游戏最终加载的 mods 目录 -->
     <ModGameDir>$(ModDir)\$(ModName)</ModGameDir>
+    <!-- OneDrive 联调 MOD 目录 -->
+    <ModOneDriveDir>C:\Users\JMC\OneDrive\文档\游戏\STS2\mods\$(ModName)</ModOneDriveDir>
     <PromptLaunchGameAfterBuild>true</PromptLaunchGameAfterBuild>
 
   </PropertyGroup>
@@ -103,12 +105,12 @@ texture_format/etc2=false
     "id": "$(ModName)",
     "name": "$(ModName)",
     "author": "$(Author)",
-    "version": "1.0.0",
-    "description": "$(ModName) Description",
+    "version": "1.0.11",
+    "description": "提供可配置热键的快速 SL：重新载入当前局存档，效果等同于保存并退出后继续游戏。",
     "has_pck": true,
     "has_dll": true,
     "dependencies": ["JmcModLib"],
-    "affects_gameplay": false
+    "affects_gameplay": true
 }
       </ManifestText>
     </PropertyGroup>
@@ -141,6 +143,16 @@ texture_format/etc2=false
          0: 成功（没有任何文件需要更新）
          >3: 失败 -->
     <Error Condition="$(RoboExitCode) &gt; 3" Text="❌ Robocopy 同步失败（错误代码 $(RoboExitCode)）。请检查：1. 游戏是否已关闭；2. publish 文件夹内是否有文件。" />
+
+    <!-- 将发布内容同步到 OneDrive 联调目录 -->
+    <Message Text="[4/4] 同步所有文件到 OneDrive 联调目录..." Importance="High" />
+    <MakeDir Directories="$(ModOneDriveDir)" />
+
+    <Exec Command="robocopy &quot;$(PublishDir)\.&quot; &quot;$(ModOneDriveDir)\.&quot; /E /XO /R:2 /W:2" IgnoreExitCode="true" StandardOutputImportance="Low">
+      <Output TaskParameter="ExitCode" PropertyName="RoboOneDriveExitCode" />
+    </Exec>
+
+    <Error Condition="$(RoboOneDriveExitCode) &gt; 3" Text="❌ Robocopy 同步到 OneDrive 联调目录失败（错误代码 $(RoboOneDriveExitCode)）。请检查 OneDrive 目录是否可写。" />
 
     <Message Text="✅ 构建完成！发布目录: $(PublishDir)" Importance="High" />
   </Target>
