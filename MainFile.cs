@@ -12,12 +12,7 @@ public partial class MainFile : Node
 {
     public static void Initialize()
     {
-        var registry = JmcModLib.Core.ModRegistry.Register(true, VersionInfo.Name, VersionInfo.Name, VersionInfo.Version)?
-            .RegisterLogger(uIFlags: LogConfigUIFlags.All);
-
-        registry?
-            .UseConfig()
-            .Done();
+        JmcModLib.Core.ModRegistry.Register<MainFile>();
 
         new Harmony($"JMC.{VersionInfo.Name}").PatchAll(Assembly.GetExecutingAssembly());
 

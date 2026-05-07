@@ -44,8 +44,7 @@ public static class QuickSlSettings
         Key = QuickSlConfigKey,
         Description = "重新载入当前局的存档，效果等同于保存并退出后继续游戏。",
         DefaultKeyboard = Key.F5,
-        ConsumeInput = true,
-        ExactModifiers = true,
+        AllowController = true,
         DebounceMs = QuickSlDebounceMs,
         Order = 10)]
     public static void QuickSl()
