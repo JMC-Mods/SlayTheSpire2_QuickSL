@@ -1,3 +1,4 @@
+using JmcModLib.Reflection;
 using JmcModLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
@@ -63,6 +64,25 @@ internal sealed class DisconnectSuppressingNetGameService(INetGameService inner)
     public void SetGameLoading(bool isLoading)
     {
         inner.SetGameLoading(isLoading);
+    }
+
+    public void SetBufferMessages(bool bufferMessages)
+    {
+        // STS2 0.105 起 INetGameService 新增 SetBufferMessages(bool)，旧版接口没有该方法。
+        // 已知旧版直接跳过；未知版本仍尝试调用，交给 JML MethodAccessor 的缓存和异常路径兜底。
+        if (Sts2GameVersionCompat.IsVersionKnown && !Sts2GameVersionCompat.SupportsNetMessageBuffering)
+        {
+            return;
+        }
+
+        try
+        {
+            MethodAccessor.Get(typeof(INetGameService), "SetBufferMessages", [typeof(bool)])
+                .Invoke(inner, bufferMessages);
+        }
+        catch (MissingMethodException)
+        {
+        }
     }
 
     public string? GetRawLobbyIdentifier()

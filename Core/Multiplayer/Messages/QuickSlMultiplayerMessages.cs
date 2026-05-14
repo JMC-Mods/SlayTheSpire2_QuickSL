@@ -20,6 +20,7 @@ internal struct QuickSlInitiateMessage : INetMessage
     public bool ShouldBroadcast => false;
     public NetTransferMode Mode => NetTransferMode.Reliable;
     public LogLevel LogLevel => LogLevel.Debug;
+    public bool ShouldBuffer => false;
 
     public void Serialize(PacketWriter writer)
     {
@@ -39,6 +40,7 @@ internal struct QuickSlInitiatePendingMessage : INetMessage
     public bool ShouldBroadcast => false;
     public NetTransferMode Mode => NetTransferMode.Reliable;
     public LogLevel LogLevel => LogLevel.Debug;
+    public bool ShouldBuffer => false;
 
     public void Serialize(PacketWriter writer)
     {
@@ -62,6 +64,7 @@ internal struct QuickSlInitiateResponseMessage : INetMessage
     public bool ShouldBroadcast => false;
     public NetTransferMode Mode => NetTransferMode.Reliable;
     public LogLevel LogLevel => LogLevel.Debug;
+    public bool ShouldBuffer => false;
 
     public void Serialize(PacketWriter writer)
     {
@@ -91,6 +94,7 @@ internal struct QuickSlRequestMessage : INetMessage
     public bool ShouldBroadcast => false;
     public NetTransferMode Mode => NetTransferMode.Reliable;
     public LogLevel LogLevel => LogLevel.Debug;
+    public bool ShouldBuffer => false;
 
     public void Serialize(PacketWriter writer)
     {
@@ -115,6 +119,7 @@ internal struct QuickSlVoteMessage : INetMessage
     public bool ShouldBroadcast => false;
     public NetTransferMode Mode => NetTransferMode.Reliable;
     public LogLevel LogLevel => LogLevel.Debug;
+    public bool ShouldBuffer => false;
 
     public void Serialize(PacketWriter writer)
     {
@@ -141,6 +146,7 @@ internal struct QuickSlExecuteMessage : INetMessage
     public bool ShouldBroadcast => false;
     public NetTransferMode Mode => NetTransferMode.Reliable;
     public LogLevel LogLevel => LogLevel.Debug;
+    public bool ShouldBuffer => false;
 
     public void Serialize(PacketWriter writer)
     {
@@ -206,6 +212,7 @@ internal struct QuickSlLoadReadyMessage : INetMessage
     public bool ShouldBroadcast => false;
     public NetTransferMode Mode => NetTransferMode.Reliable;
     public LogLevel LogLevel => LogLevel.Debug;
+    public bool ShouldBuffer => false;
 
     public void Serialize(PacketWriter writer)
     {
@@ -225,6 +232,7 @@ internal struct QuickSlLoadBeginMessage : INetMessage
     public bool ShouldBroadcast => false;
     public NetTransferMode Mode => NetTransferMode.Reliable;
     public LogLevel LogLevel => LogLevel.Debug;
+    public bool ShouldBuffer => false;
 
     public void Serialize(PacketWriter writer)
     {
@@ -244,6 +252,7 @@ internal struct QuickSlSetupReadyMessage : INetMessage
     public bool ShouldBroadcast => false;
     public NetTransferMode Mode => NetTransferMode.Reliable;
     public LogLevel LogLevel => LogLevel.Debug;
+    public bool ShouldBuffer => false;
 
     public void Serialize(PacketWriter writer)
     {
@@ -263,6 +272,7 @@ internal struct QuickSlRunBeginMessage : INetMessage
     public bool ShouldBroadcast => false;
     public NetTransferMode Mode => NetTransferMode.Reliable;
     public LogLevel LogLevel => LogLevel.Debug;
+    public bool ShouldBuffer => false;
 
     public void Serialize(PacketWriter writer)
     {
@@ -284,6 +294,7 @@ internal struct QuickSlCancelMessage : INetMessage
     public bool ShouldBroadcast => false;
     public NetTransferMode Mode => NetTransferMode.Reliable;
     public LogLevel LogLevel => LogLevel.Debug;
+    public bool ShouldBuffer => false;
 
     public void Serialize(PacketWriter writer)
     {

@@ -126,7 +126,7 @@ public static class QuickSlService
             runManager.CleanUp();
             cleanedUp = true;
 
-            runManager.SetUpSavedSinglePlayer(runState, runSave);
+            await QuickSlRunManagerCompat.SetUpSavedSinglePlayerAsync(runManager, runState, runSave);
             game.ReactionContainer.InitializeNetworking(new NetSingleplayerGameService());
             using (QuickSlSceneReloadGuard.SuppressLateHandLayoutRefresh())
             {

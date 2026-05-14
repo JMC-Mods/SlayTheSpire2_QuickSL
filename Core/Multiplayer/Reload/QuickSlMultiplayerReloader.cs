@@ -95,7 +95,7 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
 
             await Barrier.WaitForCoordinatedLoadBeginAsync(requestId, originalNetService, connectedPlayerIds);
 
-            runManager.SetUpSavedMultiPlayer(runState, loadLobby);
+            await QuickSlRunManagerCompat.SetUpSavedMultiPlayerAsync(runManager, runState, loadLobby);
             KeepOnlyConnectedPlayersInRunLobby(runManager, loadLobby.ConnectedPlayerIds);
             controller.EnsureHandlersRegistered();
 
