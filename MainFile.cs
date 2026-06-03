@@ -1,8 +1,8 @@
-using QuickSL.Core;
 using Godot;
 using HarmonyLib;
 using JmcModLib.Utils;
 using MegaCrit.Sts2.Core.Modding;
+using QuickSL.Core;
 using System.Reflection;
 
 namespace QuickSL;

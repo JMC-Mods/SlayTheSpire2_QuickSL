@@ -3,10 +3,8 @@ using JmcModLib.Prefabs;
 using JmcModLib.Utils;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
-using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using MegaCrit.Sts2.Core.Nodes.Multiplayer;
 using MegaCrit.Sts2.Core.Platform;
-using QuickSL.Core;
 using System.Globalization;
 
 namespace QuickSL.UI;
@@ -190,7 +188,7 @@ internal static class QuickSlPopupService
             }
 
             var closed = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-            popup.Connect(Node.SignalName.TreeExiting, Callable.From(() => closed.TrySetResult()));
+            popup.Connect(Node.SignalName.TreeExiting, Callable.From(closed.TrySetResult));
 
             modalContainer.Add(popup);
             if (!ReferenceEquals(modalContainer.OpenModal, popup))

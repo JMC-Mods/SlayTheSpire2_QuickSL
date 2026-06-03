@@ -1,6 +1,5 @@
 using JmcModLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Multiplayer;
-using MegaCrit.Sts2.Core.Multiplayer;
 using MegaCrit.Sts2.Core.Runs;
 using QuickSL.UI;
 
