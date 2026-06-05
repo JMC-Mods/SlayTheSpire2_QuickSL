@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.0] - 2026-06-05
+### Fixed
+- 修复游戏 `0.107` 将 `RunManager.SetUpSavedSinglePlayer` / `RunManager.SetUpSavedMultiPlayer` 重命名为 `RunManager.SetUpSavedSingleplayer` / `RunManager.SetUpSavedMultiplayer` 后，快速 SL 无法重新载入并回到主界面的问题。
+
 ## [1.1.0] - 2026-05-14
 ### Fixed
 - 修复了`0.105.1`版本兼容性问题

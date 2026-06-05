@@ -8,14 +8,25 @@ namespace QuickSL.Core;
 
 internal static class QuickSlRunManagerCompat
 {
+    private static readonly string[] SavedSingleplayerMethodNames =
+    [
+        "SetUpSavedSingleplayer",
+        "SetUpSavedSinglePlayer"
+    ];
+
+    private static readonly string[] SavedMultiplayerMethodNames =
+    [
+        "SetUpSavedMultiplayer",
+        "SetUpSavedMultiPlayer"
+    ];
+
     public static Task SetUpSavedSinglePlayerAsync(
         RunManager runManager,
         RunState runState,
         SerializableRun runSave)
     {
-        MethodAccessor method = MethodAccessor.Get(
-            typeof(RunManager),
-            nameof(RunManager.SetUpSavedSinglePlayer),
+        MethodAccessor method = GetRunManagerMethod(
+            SavedSingleplayerMethodNames,
             [typeof(RunState), typeof(SerializableRun)]);
 
         return InvokeMaybeAsync(
@@ -31,9 +42,8 @@ internal static class QuickSlRunManagerCompat
         RunState runState,
         LoadRunLobby loadLobby)
     {
-        MethodAccessor method = MethodAccessor.Get(
-            typeof(RunManager),
-            nameof(RunManager.SetUpSavedMultiPlayer),
+        MethodAccessor method = GetRunManagerMethod(
+            SavedMultiplayerMethodNames,
             [typeof(RunState), typeof(LoadRunLobby)]);
 
         return InvokeMaybeAsync(
@@ -61,8 +71,7 @@ internal static class QuickSlRunManagerCompat
             throw;
         }
 
-        // STS2 0.105 起 RunManager.SetUpSavedSinglePlayer/SetUpSavedMultiPlayer
-        // 从 void 改为 Task；旧版返回 void，新版必须等待其异步存档重载计数逻辑完成。
+        // STS2 0.105 起保存加载入口从 void 改为 Task；新版必须等待异步存档重载计数逻辑完成。
         if (methodShouldReturnTask && result is Task setupTask)
         {
             await setupTask.ConfigureAwait(false);
@@ -73,5 +82,25 @@ internal static class QuickSlRunManagerCompat
         {
             await unexpectedTask.ConfigureAwait(false);
         }
+    }
+
+    private static MethodAccessor GetRunManagerMethod(
+        IEnumerable<string> methodNames,
+        Type[] parameterTypes)
+    {
+        foreach (string methodName in methodNames)
+        {
+            try
+            {
+                return MethodAccessor.Get(typeof(RunManager), methodName, parameterTypes);
+            }
+            catch (MissingMethodException)
+            {
+                // 兼容 STS2 0.106 及更早的 Player 拼写，以及 0.107 起的新拼写。
+            }
+        }
+
+        throw new MissingMethodException(
+            $"在 {typeof(RunManager).FullName} 找不到兼容的保存加载入口：{string.Join(", ", methodNames)}");
     }
 }
