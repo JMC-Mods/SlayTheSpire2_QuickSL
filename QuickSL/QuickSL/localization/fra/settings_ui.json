@@ -8,5 +8,6 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Autoriser le SL multijoueur lance par un client",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "En tant qu'hote, autorise les clients a appuyer sur le raccourci Quick SL pour demander un Quick Save Load synchronise. Si desactive, les demandes des clients sont refusees immediatement.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "Demander a l'hote pour le SL lance par un client",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Quand un client appuie sur le raccourci Quick SL, demande d'abord a l'hote; si desactive, l'hote passe directement a la confirmation des clients."
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Quand un client appuie sur le raccourci Quick SL, demande d'abord a l'hote; si desactive, l'hote passe directement a la confirmation des clients.",
+  "EXTENSION.JMCMODLIB.PAUSE_MENU.QuickSL.quick_sl.pause_menu.retry.TEXT": "S & L"
 }

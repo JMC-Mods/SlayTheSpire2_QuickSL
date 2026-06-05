@@ -8,5 +8,6 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "クライアント開始のマルチプレイSLを許可",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "ホスト時、クライアントがクイックSLホットキーで同期Quick Save Loadを要求できるようにします。オフの場合、クライアント要求は即座に拒否されます。",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "クライアント開始SLでホストに確認",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "クライアントがクイックSLホットキーを押したとき、先にホストへ確認します。オフの場合、ホストはそのままクライアント確認フローへ進みます。"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "クライアントがクイックSLホットキーを押したとき、先にホストへ確認します。オフの場合、ホストはそのままクライアント確認フローへ進みます。",
+  "EXTENSION.JMCMODLIB.PAUSE_MENU.QuickSL.quick_sl.pause_menu.retry.TEXT": "S & L"
 }

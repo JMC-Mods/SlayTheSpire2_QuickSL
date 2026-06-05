@@ -8,5 +8,6 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Allow client-initiated multiplayer SL",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "When hosting, allow clients to press the Quick Save Load hotkey to request a synchronized Quick Save Load. When disabled, client requests are rejected immediately.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "Ask host for client-initiated SL",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "When a client presses the Quick Save Load hotkey, ask the host first; when disabled, the host proceeds directly to the client confirmation flow."
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "When a client presses the Quick Save Load hotkey, ask the host first; when disabled, the host proceeds directly to the client confirmation flow.",
+  "EXTENSION.JMCMODLIB.PAUSE_MENU.QuickSL.quick_sl.pause_menu.retry.TEXT": "S & L"
 }

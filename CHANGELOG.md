@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0] - 2026-06-05
+### Added
+- 新增暂停菜单 `S & L` 入口，可在单人或多人局中通过暂停菜单触发快速 SL。
+
+### Changed
+- 前置模组 JmcModLib 需要升级到 `1.3.0` 或更高版本。
+
 ## [1.2.0] - 2026-06-05
 ### Fixed
 - 修复游戏 `0.107` 将 `RunManager.SetUpSavedSinglePlayer` / `RunManager.SetUpSavedMultiPlayer` 重命名为 `RunManager.SetUpSavedSingleplayer` / `RunManager.SetUpSavedMultiplayer` 后，快速 SL 无法重新载入并回到主界面的问题。

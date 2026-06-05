@@ -1,6 +1,8 @@
 using Godot;
 using JmcModLib.Config;
 using JmcModLib.Config.UI;
+using JmcModLib.UI.PauseMenu;
+using JmcModLib.Utils;
 
 namespace QuickSL.Core;
 
@@ -9,6 +11,7 @@ public static class QuickSlSettings
     private const string KeybindGroup = "keybinds";
     private const string MultiplayerGroup = "multiplayer";
     private const string QuickSlConfigKey = "keybind.quick_sl";
+    private const string PauseMenuButtonKey = "quick_sl.pause_menu.retry";
     private const ulong QuickSlDebounceMs = 1000UL;
 
     [UIToggle]
@@ -50,5 +53,12 @@ public static class QuickSlSettings
     public static void QuickSl()
     {
         QuickSlService.RequestQuickSl();
+    }
+
+    [PauseMenuButton("S & L", Key = PauseMenuButtonKey, Order = 10)]
+    public static async Task QuickSlFromPauseMenu()
+    {
+        ModLogger.Trace("快速 SL：通过暂停菜单入口触发。");
+        await QuickSlService.RequestQuickSlAsync();
     }
 }

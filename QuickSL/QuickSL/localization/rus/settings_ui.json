@@ -8,5 +8,6 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Разрешить сетевой SL от клиентов",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "Если вы хост, клиенты могут нажать горячую клавишу Quick SL и запросить синхронный Quick Save Load. Если выключено, запросы клиентов сразу отклоняются.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "Спрашивать хоста при SL от клиента",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Когда клиент нажимает горячую клавишу Quick SL, сначала спрашивает хоста; если выключено, хост сразу переходит к подтверждению клиентов."
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Когда клиент нажимает горячую клавишу Quick SL, сначала спрашивает хоста; если выключено, хост сразу переходит к подтверждению клиентов.",
+  "EXTENSION.JMCMODLIB.PAUSE_MENU.QuickSL.quick_sl.pause_menu.retry.TEXT": "S & L"
 }

@@ -14,13 +14,18 @@ public static class QuickSlService
 
     public static void RequestQuickSl()
     {
+        _ = RequestQuickSlAsync();
+    }
+
+    public static async Task RequestQuickSlAsync()
+    {
         if (!RunLock.Wait(TimeSpan.Zero))
         {
             ModLogger.Warn("快速 SL 已在执行中，忽略重复触发。");
             return;
         }
 
-        _ = RunQuickSlAsync();
+        await RunQuickSlAsync();
     }
 
     private static async Task RunQuickSlAsync()

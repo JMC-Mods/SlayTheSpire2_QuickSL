@@ -8,5 +8,6 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "클라이언트 시작 멀티플레이 SL 허용",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "호스트일 때 클라이언트가 빠른 SL 단축키로 동기화된 Quick Save Load를 요청할 수 있게 합니다. 끄면 클라이언트 요청을 즉시 거절합니다.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "클라이언트 시작 SL에서 호스트 확인",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "클라이언트가 빠른 SL 단축키를 누르면 먼저 호스트에게 확인합니다. 끄면 호스트가 바로 클라이언트 확인 절차로 진행합니다."
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "클라이언트가 빠른 SL 단축키를 누르면 먼저 호스트에게 확인합니다. 끄면 호스트가 바로 클라이언트 확인 절차로 진행합니다.",
+  "EXTENSION.JMCMODLIB.PAUSE_MENU.QuickSL.quick_sl.pause_menu.retry.TEXT": "S & L"
 }

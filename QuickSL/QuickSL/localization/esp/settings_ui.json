@@ -8,5 +8,6 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Permitir SL multijugador iniciado por clientes",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "Como anfitrion, permite que los clientes pulsen el atajo de Quick SL para solicitar un Quick Save Load sincronizado. Si se desactiva, las solicitudes se rechazan de inmediato.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "Preguntar al anfitrion si un cliente inicia SL",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Cuando un cliente pulsa el atajo de Quick SL, pregunta primero al anfitrion; si se desactiva, el anfitrion pasa directamente al flujo de confirmacion de clientes."
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Cuando un cliente pulsa el atajo de Quick SL, pregunta primero al anfitrion; si se desactiva, el anfitrion pasa directamente al flujo de confirmacion de clientes.",
+  "EXTENSION.JMCMODLIB.PAUSE_MENU.QuickSL.quick_sl.pause_menu.retry.TEXT": "S & L"
 }

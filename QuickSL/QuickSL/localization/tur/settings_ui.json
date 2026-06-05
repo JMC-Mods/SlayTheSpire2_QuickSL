@@ -8,5 +8,6 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Istemcinin baslattigi cok oyunculu SLye izin ver",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "Host iken istemcilerin Quick SL kisayoluna basip senkronize Quick Save Load istemesine izin verir. Kapaliysa istemci istekleri hemen reddedilir.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "Istemci SL baslatinca hosta sor",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Bir istemci Quick SL kisayoluna bastiginda once hosta sorar; kapaliysa host dogrudan istemci onay akisina gecer."
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "Bir istemci Quick SL kisayoluna bastiginda once hosta sorar; kapaliysa host dogrudan istemci onay akisina gecer.",
+  "EXTENSION.JMCMODLIB.PAUSE_MENU.QuickSL.quick_sl.pause_menu.retry.TEXT": "S & L"
 }

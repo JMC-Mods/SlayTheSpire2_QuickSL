@@ -8,5 +8,6 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "อนุญาต SL ผู้เล่นหลายคนจากลูกข่าย",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.DESCRIPTION": "เมื่อเป็นโฮสต์ อนุญาตให้ลูกข่ายกดปุ่มลัด Quick SL เพื่อขอ Quick Save Load แบบซิงค์ หากปิด คำขอจากลูกข่ายจะถูกปฏิเสธทันที",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.NAME": "ถามโฮสต์เมื่อไคลเอนต์เริ่ม SL",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "เมื่อลูกข่ายกดปุ่มลัด Quick SL ให้ถามโฮสต์ก่อน หากปิด โฮสต์จะไปยังขั้นตอนยืนยันของลูกข่ายทันที"
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_host_confirmation.DESCRIPTION": "เมื่อลูกข่ายกดปุ่มลัด Quick SL ให้ถามโฮสต์ก่อน หากปิด โฮสต์จะไปยังขั้นตอนยืนยันของลูกข่ายทันที",
+  "EXTENSION.JMCMODLIB.PAUSE_MENU.QuickSL.quick_sl.pause_menu.retry.TEXT": "S & L"
 }
