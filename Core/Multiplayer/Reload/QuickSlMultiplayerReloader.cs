@@ -106,7 +106,7 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
                 await game.LoadRun(runState, runSave.PreFinishedRoom);
             }
 
-            loadLobby.CleanUp(disconnectSession: false);
+            QuickSlRunManagerCompat.CleanUpLoadRunLobby(loadLobby, disconnectSession: false);
             loadLobby = null;
 
             await game.Transition.FadeIn();
@@ -115,7 +115,11 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
         catch (Exception ex)
         {
             ModLogger.Error("多人快速 SL 执行失败。", ex);
-            loadLobby?.CleanUp(disconnectSession: false);
+            if (loadLobby != null)
+            {
+                QuickSlRunManagerCompat.CleanUpLoadRunLobby(loadLobby, disconnectSession: false);
+            }
+
             await TryRecoverAsync(fadedOut, cleanedUp);
         }
         finally

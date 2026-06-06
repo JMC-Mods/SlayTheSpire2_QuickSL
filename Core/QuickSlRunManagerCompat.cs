@@ -20,6 +20,8 @@ internal static class QuickSlRunManagerCompat
         "SetUpSavedMultiPlayer"
     ];
 
+    private static readonly Lazy<MethodAccessor> LoadRunLobbyCleanUpMethodValue = new(GetLoadRunLobbyCleanUpMethod);
+
     public static Task SetUpSavedSinglePlayerAsync(
         RunManager runManager,
         RunState runState,
@@ -52,6 +54,19 @@ internal static class QuickSlRunManagerCompat
             runManager,
             runState,
             loadLobby);
+    }
+
+    public static void CleanUpLoadRunLobby(LoadRunLobby loadLobby, bool disconnectSession)
+    {
+        try
+        {
+            LoadRunLobbyCleanUpMethodValue.Value.Invoke(loadLobby, disconnectSession);
+        }
+        catch (System.Reflection.TargetInvocationException ex) when (ex.InnerException != null)
+        {
+            ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
+            throw;
+        }
     }
 
     private static async Task InvokeMaybeAsync(
@@ -102,5 +117,19 @@ internal static class QuickSlRunManagerCompat
 
         throw new MissingMethodException(
             $"在 {typeof(RunManager).FullName} 找不到兼容的保存加载入口：{string.Join(", ", methodNames)}");
+    }
+
+    private static MethodAccessor GetLoadRunLobbyCleanUpMethod()
+    {
+        try
+        {
+            // JML 会匹配一参签名，也会在新版二参 optional 签名上自动补齐默认值。
+            return MethodAccessor.Get(typeof(LoadRunLobby), nameof(LoadRunLobby.CleanUp), [typeof(bool)]);
+        }
+        catch (MissingMethodException)
+        {
+            throw new MissingMethodException(
+                $"在 {typeof(LoadRunLobby).FullName} 找不到兼容的 CleanUp(bool)。");
+        }
     }
 }
