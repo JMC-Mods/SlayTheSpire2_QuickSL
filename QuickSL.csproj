@@ -105,7 +105,7 @@ texture_format/etc2=false
     "id": "$(ModName)",
     "name": "$(ModName)",
     "author": "$(Author)",
-    "version": "1.0.11",
+    "version": "1.0.0",
     "description": "提供可配置热键的快速 SL：重新载入当前局存档，效果等同于保存并退出后继续游戏。",
     "has_pck": true,
     "has_dll": true,
