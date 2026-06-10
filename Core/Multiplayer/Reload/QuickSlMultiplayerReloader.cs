@@ -67,6 +67,8 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
             RunState runState = RunState.FromSerializable(runSave);
 
             ModLogger.Info($"多人快速 SL：执行同步重载，RequestId={requestId}，在线玩家数={connectedPlayerIds.Count}。");
+            QuickSlAsyncOperationGuard.CancelPendingGameWaits();
+            runManager.ActionExecutor.Cancel();
             runManager.ActionQueueSet.Reset();
             NRunMusicController.Instance?.StopMusic();
 

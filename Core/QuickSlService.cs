@@ -121,6 +121,8 @@ public static class QuickSlService
             RunState runState = RunState.FromSerializable(runSave);
 
             ModLogger.Info($"快速 SL：重新载入当前局，角色={runSave.Players[0].CharacterId}。");
+            QuickSlAsyncOperationGuard.CancelPendingGameWaits();
+            runManager.ActionExecutor.Cancel();
             runManager.ActionQueueSet.Reset();
             NRunMusicController.Instance?.StopMusic();
 
