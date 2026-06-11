@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="92" height="24" role="img" aria-label="更新日志">
+  <title>更新日志</title>
+  <rect x=".5" y=".5" width="91" height="23" rx="6" fill="#27272a" stroke="#3f3f46"/>
+  <rect x="1" y="1" width="5" height="22" rx="2.5" fill="#f59e0b"/>
+  <text x="51" y="16" fill="#f8fafc" text-anchor="middle" font-family="Segoe UI, Noto Sans CJK SC, Noto Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="700">更新日志</text>
+</svg>

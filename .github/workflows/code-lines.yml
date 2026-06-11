@@ -1,0 +1,19 @@
+name: Code Stats Badges
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    paths-ignore:
+      - '.github/badges/code-lines*.svg'
+      - 'README.md'
+      - 'README_en.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-code-stats-badges:
+    uses: JMC2002/STS2_Mods_Actions/.github/workflows/code-lines.yml@main
