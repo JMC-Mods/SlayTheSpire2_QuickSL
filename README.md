@@ -4,6 +4,13 @@
   <a href="CHANGELOG.md"><img alt="更新日志" src=".github/badges/changelog-zh.svg"></a>
   <a href="https://github.com/JMC2002/SlayTheSpire2_QuickSL/releases"><img alt="Releases" src=".github/badges/releases.svg"></a>
 <!-- code-stats:start -->
+  <a href="https://github.com/JMC2002/SlayTheSpire2_QuickSL/actions/workflows/code-lines.yml"><img alt="C# 行数" src=".github/badges/code-lines-csharp.svg"></a>
+  <a href="https://github.com/JMC2002/SlayTheSpire2_QuickSL/actions/workflows/code-lines.yml"><img alt="JSON 行数" src=".github/badges/code-lines-json.svg"></a>
+  <a href="https://github.com/JMC2002/SlayTheSpire2_QuickSL/actions/workflows/code-lines.yml"><img alt="MSBuild script 行数" src=".github/badges/code-lines-msbuild-script.svg"></a>
+  <a href="https://github.com/JMC2002/SlayTheSpire2_QuickSL/actions/workflows/code-lines.yml"><img alt="YAML 行数" src=".github/badges/code-lines-yaml.svg"></a>
+  <a href="https://github.com/JMC2002/SlayTheSpire2_QuickSL/actions/workflows/code-lines.yml"><img alt="总代码行数" src=".github/badges/code-lines-total.svg"></a>
+  <a href="https://github.com/JMC2002/SlayTheSpire2_QuickSL/actions/workflows/code-lines.yml"><img alt="累计新增行数" src=".github/badges/code-lines-added.svg"></a>
+  <a href="https://github.com/JMC2002/SlayTheSpire2_QuickSL/actions/workflows/code-lines.yml"><img alt="累计删除行数" src=".github/badges/code-lines-deleted.svg"></a>
 <!-- code-stats:end -->
 </p>
 

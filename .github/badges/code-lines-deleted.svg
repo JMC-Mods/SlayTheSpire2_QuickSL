@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="112" height="22" role="img" aria-label="deleted: 2,506">
+  <title>deleted: 2,506</title>
+  <linearGradient id="s" x2="0" y2="100%">
+    <stop offset="0" stop-color="#fff" stop-opacity=".12"/>
+    <stop offset="1" stop-color="#000" stop-opacity=".06"/>
+  </linearGradient>
+  <clipPath id="r">
+    <rect width="112" height="22" rx="6" fill="#fff"/>
+  </clipPath>
+  <g clip-path="url(#r)">
+    <rect width="60" height="22" fill="#3f3f46"/>
+    <rect x="60" width="52" height="22" fill="#dc2626"/>
+    <rect width="112" height="22" fill="url(#s)"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="Segoe UI, Noto Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">
+    <text x="30" y="15">deleted</text>
+    <text x="86" y="15">2,506</text>
+  </g>
+</svg>
