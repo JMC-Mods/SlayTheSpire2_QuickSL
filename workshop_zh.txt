@@ -20,7 +20,7 @@
 
 [h2] 3. 提醒 [/h2]
 [list]
-    [*] 由于游戏机制，首次打任何一个 MOD 都会导致存档不同步，可以使用 [url=https://steamcommunity.com/sharedfiles/filedetails/changelog/3747539544] BetterSaveSlot [/url] 解决
+    [*] 由于游戏机制，首次打任何一个 MOD 都会导致存档不同步，可以使用 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3747533700] BetterSaveSlots [/url] 解决
     [*] 本 MOD 需要前置：  
 • [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3747526103] JmcModLib [/url]  
     [*] 本 MOD 的本地化内容（包括主页与更新日志）除了中文外均为ChatGPT生成，目前支持游戏官方支持的所有语种，如果你认为哪个词翻译不妥或者希望贡献你的翻译，欢迎去Github提issue / PR，或者联系我本人
@@ -35,7 +35,7 @@
 - 
 
 [h2] 6. 其他 [/h2]
-有意见和建议欢迎大家在讨论区留言或者github提issue，更新日志可以点击右上角“[url=https://steamcommunity.com/sharedfiles/filedetails/changelog/3747533700] 改动说明 [/url]”查看。
+有意见和建议欢迎大家在讨论区留言或者github提issue，更新日志可以点击右上角“[url=https://steamcommunity.com/sharedfiles/filedetails/changelog/3747539544] 改动说明 [/url]”查看。
 
 [b] 如果你喜欢这个 Mod 的话，希望可以点一下好评~[/b]
 
