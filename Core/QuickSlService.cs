@@ -130,7 +130,7 @@ public static class QuickSlService
             fadedOut = true;
 
             QuickSlSceneReloadGuard.PrepareCurrentHandForSceneSwap();
-            runManager.CleanUp();
+            QuickSlRunManagerCompat.CleanUpForQuickSlReload(runManager);
             cleanedUp = true;
 
             await QuickSlRunManagerCompat.SetUpSavedSinglePlayerAsync(runManager, runState, runSave);

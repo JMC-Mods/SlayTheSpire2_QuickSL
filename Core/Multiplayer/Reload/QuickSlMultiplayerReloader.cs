@@ -82,7 +82,7 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
             NetServiceAccessor.SetValue(runManager, protectedNetService);
             try
             {
-                runManager.CleanUp();
+                QuickSlRunManagerCompat.CleanUpForQuickSlReload(runManager);
                 cleanedUp = true;
             }
             finally

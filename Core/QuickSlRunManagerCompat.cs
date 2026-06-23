@@ -1,4 +1,5 @@
 using JmcModLib.Reflection;
+using JmcModLib.Utils;
 using MegaCrit.Sts2.Core.Multiplayer.Game.Lobby;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves;
@@ -67,6 +68,17 @@ internal static class QuickSlRunManagerCompat
             ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
             throw;
         }
+    }
+
+    public static void CleanUpForQuickSlReload(RunManager runManager)
+    {
+        if (runManager.CombatReplayWriter is { IsRecordingReplay: true } replayWriter)
+        {
+            replayWriter.IsEnabled = false;
+            ModLogger.Debug("快速 SL：重载旧局时跳过战斗回放写入。");
+        }
+
+        runManager.CleanUp();
     }
 
     private static async Task InvokeMaybeAsync(
