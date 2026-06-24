@@ -11,3 +11,9 @@ permissions:
 jobs:
   release:
     uses: JMC2002/STS2_Mods_Actions/.github/workflows/release-mod.yml@main
+
+  publish-quark:
+    needs: release
+    uses: JMC2002/STS2_Mods_Actions/.github/workflows/publish-quark.yml@main
+    secrets:
+      quark_cookie: ${{ secrets.QUARK_COOKIE }}
