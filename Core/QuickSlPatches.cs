@@ -1,6 +1,7 @@
 using Godot;
 using HarmonyLib;
 using JmcModLib.Utils;
+using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards.Holders;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
@@ -31,6 +32,136 @@ internal static class NPlayerHandOnHolderUnfocusedPatch
 
         ModLogger.Debug("快速 SL：旧手牌已离开场景树，跳过失焦布局刷新。");
         return false;
+    }
+}
+
+[HarmonyPatch(typeof(NTransition), nameof(NTransition.FadeOut))]
+internal static class NTransitionFadeOutPatch
+{
+    [HarmonyPrefix]
+    private static bool Prefix(ref Task __result)
+    {
+        return QuickSlTransitionGuard.TrySkipTransition("屏幕淡出", ref __result);
+    }
+}
+
+[HarmonyPatch(typeof(NTransition), nameof(NTransition.FadeIn))]
+internal static class NTransitionFadeInPatch
+{
+    [HarmonyPrefix]
+    private static bool Prefix(ref Task __result)
+    {
+        return QuickSlTransitionGuard.TrySkipTransition("屏幕淡入", ref __result);
+    }
+}
+
+[HarmonyPatch(typeof(NTransition), nameof(NTransition.RoomFadeOut))]
+internal static class NTransitionRoomFadeOutPatch
+{
+    [HarmonyPrefix]
+    private static bool Prefix(ref Task __result)
+    {
+        return QuickSlTransitionGuard.TrySkipTransition("房间淡出", ref __result);
+    }
+}
+
+[HarmonyPatch(typeof(NTransition), nameof(NTransition.RoomFadeIn))]
+internal static class NTransitionRoomFadeInPatch
+{
+    [HarmonyPrefix]
+    private static bool Prefix(ref Task __result)
+    {
+        return QuickSlTransitionGuard.TrySkipTransition("房间淡入", ref __result);
+    }
+}
+
+internal static class QuickSlTransitionGuard
+{
+    private const float InstantTransitionSeconds = 0f;
+
+    private static int suppressTransitionDepth;
+
+    public static async Task<bool> FadeOutAsync(NTransition transition, bool useFastMode, bool useInstantCover)
+    {
+        if (!useFastMode)
+        {
+            await transition.FadeOut();
+            return true;
+        }
+
+        if (!useInstantCover)
+        {
+            ModLogger.Debug("快速 SL：快速模式使用旧版裸跳过转场，重载过程可能短暂显示未稳定的界面。");
+            return false;
+        }
+
+        ModLogger.Debug("快速 SL：快速模式使用瞬时遮罩隐藏重载过程。");
+        await transition.FadeOut(InstantTransitionSeconds);
+        return true;
+    }
+
+    public static Task FadeInAsync(NTransition transition, bool useFastMode, bool useInstantCover)
+    {
+        if (!useFastMode)
+        {
+            return transition.FadeIn();
+        }
+
+        return useInstantCover
+            ? transition.FadeIn(InstantTransitionSeconds)
+            : Task.CompletedTask;
+    }
+
+    public static IDisposable SuppressTransitions(bool shouldSuppress)
+    {
+        if (!shouldSuppress)
+        {
+            return NoopSuppression.Instance;
+        }
+
+        Interlocked.Increment(ref suppressTransitionDepth);
+        return new TransitionSuppression();
+    }
+
+    public static bool TrySkipTransition(string transitionName, ref Task result)
+    {
+        if (Volatile.Read(ref suppressTransitionDepth) <= 0)
+        {
+            return true;
+        }
+
+        ModLogger.Trace($"快速 SL：快速模式跳过{transitionName}动画。");
+        result = Task.CompletedTask;
+        return false;
+    }
+
+    private sealed class TransitionSuppression : IDisposable
+    {
+        private bool disposed;
+
+        public void Dispose()
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            disposed = true;
+            Interlocked.Decrement(ref suppressTransitionDepth);
+        }
+    }
+
+    private sealed class NoopSuppression : IDisposable
+    {
+        public static readonly NoopSuppression Instance = new();
+
+        private NoopSuppression()
+        {
+        }
+
+        public void Dispose()
+        {
+        }
     }
 }
 

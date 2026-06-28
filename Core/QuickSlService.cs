@@ -61,6 +61,8 @@ public static class QuickSlService
     {
         bool fadedOut = false;
         bool cleanedUp = false;
+        bool useFastMode = QuickSlSettings.FastMode;
+        bool useInstantCover = QuickSlSettings.FastModeUseInstantCover;
 
         try
         {
@@ -126,8 +128,7 @@ public static class QuickSlService
             runManager.ActionQueueSet.Reset();
             NRunMusicController.Instance?.StopMusic();
 
-            await game.Transition.FadeOut();
-            fadedOut = true;
+            fadedOut = await QuickSlTransitionGuard.FadeOutAsync(game.Transition, useFastMode, useInstantCover);
 
             QuickSlSceneReloadGuard.PrepareCurrentHandForSceneSwap();
             QuickSlRunManagerCompat.CleanUpForQuickSlReload(runManager);
@@ -136,22 +137,24 @@ public static class QuickSlService
             await QuickSlRunManagerCompat.SetUpSavedSinglePlayerAsync(runManager, runState, runSave);
             game.ReactionContainer.InitializeNetworking(new NetSingleplayerGameService());
             using (QuickSlSceneReloadGuard.SuppressLateHandLayoutRefresh())
+            using (QuickSlTransitionGuard.SuppressTransitions(useFastMode))
             {
                 await game.LoadRun(runState, runSave.PreFinishedRoom);
             }
 
-            await game.Transition.FadeIn();
+            await QuickSlTransitionGuard.FadeInAsync(game.Transition, useFastMode, useInstantCover);
+            fadedOut = false;
 
             ModLogger.Info("快速 SL 完成。");
         }
         catch (Exception ex)
         {
             ModLogger.Error("快速 SL 执行失败。", ex);
-            await TryRecoverAsync(fadedOut, cleanedUp);
+            await TryRecoverAsync(fadedOut, cleanedUp, useFastMode, useInstantCover);
         }
     }
 
-    private static async Task TryRecoverAsync(bool fadedOut, bool cleanedUp)
+    private static async Task TryRecoverAsync(bool fadedOut, bool cleanedUp, bool useFastMode, bool useInstantCover)
     {
         try
         {
@@ -168,7 +171,7 @@ public static class QuickSlService
 
             if (fadedOut)
             {
-                await game.Transition.FadeIn();
+                await QuickSlTransitionGuard.FadeInAsync(game.Transition, useFastMode, useInstantCover);
             }
         }
         catch (Exception ex)

@@ -8,11 +8,30 @@ namespace QuickSL.Core;
 
 public static class QuickSlSettings
 {
+    private const string GeneralGroup = "general";
     private const string KeybindGroup = "keybinds";
     private const string MultiplayerGroup = "multiplayer";
     private const string QuickSlConfigKey = "keybind.quick_sl";
     private const string PauseMenuButtonKey = "quick_sl.pause_menu.retry";
     private const ulong QuickSlDebounceMs = 1000UL;
+
+    [UIToggle]
+    [Config(
+        "快速模式",
+        group: GeneralGroup,
+        Description = "开启后快速 SL 会跳过载入前后的淡入淡出动画；关闭后保持当前动画效果。",
+        Key = "general.fast_mode",
+        Order = 5)]
+    public static bool FastMode = false;
+
+    [UIToggle]
+    [Config(
+        "快速模式使用黑屏遮罩",
+        group: GeneralGroup,
+        Description = "开启时使用当前版本：瞬时黑屏遮住重载过程；关闭时使用旧版裸跳过转场，可能更快但可能短暂显示错误图标。",
+        Key = "general.fast_mode_use_instant_cover",
+        Order = 6)]
+    public static bool FastModeUseInstantCover = true;
 
     [UIToggle]
     [Config(

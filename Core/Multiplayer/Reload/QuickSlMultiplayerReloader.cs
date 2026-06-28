@@ -40,6 +40,8 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
 
         bool fadedOut = false;
         bool cleanedUp = false;
+        bool useFastMode = QuickSlSettings.FastMode;
+        bool useInstantCover = QuickSlSettings.FastModeUseInstantCover;
         LoadRunLobby? loadLobby = null;
         HostLoadBarrierState? setupBarrierState = null;
 
@@ -72,8 +74,7 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
             runManager.ActionQueueSet.Reset();
             NRunMusicController.Instance?.StopMusic();
 
-            await game.Transition.FadeOut();
-            fadedOut = true;
+            fadedOut = await QuickSlTransitionGuard.FadeOutAsync(game.Transition, useFastMode, useInstantCover);
 
             QuickSlSceneReloadGuard.PrepareCurrentHandForSceneSwap();
             DisposeNetworkPreservedRunSystems(runManager);
@@ -104,6 +105,7 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
             await Barrier.WaitForCoordinatedRunBeginAsync(requestId, originalNetService, connectedPlayerIds);
 
             using (QuickSlSceneReloadGuard.SuppressLateHandLayoutRefresh())
+            using (QuickSlTransitionGuard.SuppressTransitions(useFastMode))
             {
                 await game.LoadRun(runState, runSave.PreFinishedRoom);
             }
@@ -111,7 +113,9 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
             QuickSlRunManagerCompat.CleanUpLoadRunLobby(loadLobby, disconnectSession: false);
             loadLobby = null;
 
-            await game.Transition.FadeIn();
+            await QuickSlTransitionGuard.FadeInAsync(game.Transition, useFastMode, useInstantCover);
+            fadedOut = false;
+
             ModLogger.Info($"多人快速 SL 完成，RequestId={requestId}。");
         }
         catch (Exception ex)
@@ -122,7 +126,7 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
                 QuickSlRunManagerCompat.CleanUpLoadRunLobby(loadLobby, disconnectSession: false);
             }
 
-            await TryRecoverAsync(fadedOut, cleanedUp);
+            await TryRecoverAsync(fadedOut, cleanedUp, useFastMode, useInstantCover);
         }
         finally
         {
@@ -209,7 +213,7 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
         }
     }
 
-    private static async Task TryRecoverAsync(bool fadedOut, bool cleanedUp)
+    private static async Task TryRecoverAsync(bool fadedOut, bool cleanedUp, bool useFastMode, bool useInstantCover)
     {
         try
         {
@@ -226,7 +230,7 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
 
             if (fadedOut)
             {
-                await game.Transition.FadeIn();
+                await QuickSlTransitionGuard.FadeInAsync(game.Transition, useFastMode, useInstantCover);
             }
         }
         catch (Exception ex)
