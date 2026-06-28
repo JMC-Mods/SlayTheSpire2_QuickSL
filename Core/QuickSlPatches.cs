@@ -1,11 +1,15 @@
 using Godot;
 using HarmonyLib;
+using JmcModLib.Reflection;
 using JmcModLib.Utils;
+using MegaCrit.Sts2.addons.mega_text;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Cards.Holders;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.sts2.Core.Nodes.TopBar;
 
 namespace QuickSL.Core;
 
@@ -32,6 +36,16 @@ internal static class NPlayerHandOnHolderUnfocusedPatch
 
         ModLogger.Debug("快速 SL：旧手牌已离开场景树，跳过失焦布局刷新。");
         return false;
+    }
+}
+
+[HarmonyPatch(typeof(NTopBar), nameof(NTopBar.Initialize))]
+internal static class NTopBarInitializePatch
+{
+    [HarmonyPostfix]
+    private static void Postfix(NTopBar __instance, IRunState runState)
+    {
+        QuickSlSceneReloadGuard.RestoreStableTopBarLocationIfNeeded(__instance, runState);
     }
 }
 
@@ -167,12 +181,74 @@ internal static class QuickSlTransitionGuard
 
 internal static class QuickSlSceneReloadGuard
 {
+    private static readonly object TopBarLocationSnapshotLock = new();
+    private static readonly MemberAccessor FloorNumLabelAccessor =
+        MemberAccessor.Get(typeof(NTopBarFloorIcon), "_floorNumLabel");
+    private static readonly MemberAccessor RoomIconAccessor =
+        MemberAccessor.Get(typeof(NTopBarRoomIcon), "_roomIcon");
+    private static readonly MemberAccessor RoomIconOutlineAccessor =
+        MemberAccessor.Get(typeof(NTopBarRoomIcon), "_roomIconOutline");
+
     private static int suppressLateHandLayoutRefreshDepth;
+    private static int preserveTopBarLocationDepth;
+    private static TopBarLocationSnapshot? topBarLocationSnapshot;
 
     public static IDisposable SuppressLateHandLayoutRefresh()
     {
         Interlocked.Increment(ref suppressLateHandLayoutRefreshDepth);
         return new LateHandLayoutRefreshSuppression();
+    }
+
+    public static IDisposable PreserveStableTopBarLocation()
+    {
+        TopBarLocationSnapshot? snapshot = TopBarLocationSnapshot.Capture();
+        if (snapshot == null)
+        {
+            return NoopSuppression.Instance;
+        }
+
+        lock (TopBarLocationSnapshotLock)
+        {
+            topBarLocationSnapshot = snapshot;
+            preserveTopBarLocationDepth++;
+        }
+
+        ModLogger.Trace("快速 SL：已缓存旧 TopBar 的层数与房间图标显示。");
+        return new TopBarLocationPreservation();
+    }
+
+    public static void RestoreStableTopBarLocationIfNeeded(NTopBar topBar, IRunState runState)
+    {
+        if (runState.CurrentRoom != null)
+        {
+            return;
+        }
+
+        TopBarLocationSnapshot? snapshot;
+        lock (TopBarLocationSnapshotLock)
+        {
+            if (preserveTopBarLocationDepth <= 0)
+            {
+                return;
+            }
+
+            snapshot = topBarLocationSnapshot;
+        }
+
+        if (snapshot == null)
+        {
+            return;
+        }
+
+        try
+        {
+            snapshot.Apply(topBar, runState);
+            ModLogger.Trace("快速 SL：新 TopBar 初始化时已沿用旧层数与房间图标显示。");
+        }
+        catch (Exception ex)
+        {
+            ModLogger.Warn("快速 SL：恢复 TopBar 层数与房间图标显示失败，将继续执行 SL。", ex);
+        }
     }
 
     public static bool ShouldSkipLateHandUnfocus(NPlayerHand hand, NHandCardHolder? holder)
@@ -255,6 +331,134 @@ internal static class QuickSlSceneReloadGuard
 
             disposed = true;
             Interlocked.Decrement(ref suppressLateHandLayoutRefreshDepth);
+        }
+    }
+
+    private sealed class TopBarLocationPreservation : IDisposable
+    {
+        private bool disposed;
+
+        public void Dispose()
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            disposed = true;
+            lock (TopBarLocationSnapshotLock)
+            {
+                preserveTopBarLocationDepth--;
+                if (preserveTopBarLocationDepth <= 0)
+                {
+                    preserveTopBarLocationDepth = 0;
+                    topBarLocationSnapshot = null;
+                }
+            }
+        }
+    }
+
+    private sealed class NoopSuppression : IDisposable
+    {
+        public static readonly NoopSuppression Instance = new();
+
+        private NoopSuppression()
+        {
+        }
+
+        public void Dispose()
+        {
+        }
+    }
+
+    private sealed record TopBarLocationSnapshot(
+        string? FloorText,
+        Texture2D? RoomIconTexture,
+        bool RoomIconVisible,
+        Texture2D? RoomIconOutlineTexture,
+        bool RoomIconOutlineVisible,
+        Control.FocusModeEnum RoomIconFocusMode,
+        Control.MouseFilterEnum RoomIconMouseFilter)
+    {
+        public static TopBarLocationSnapshot? Capture()
+        {
+            NTopBar? topBar = NRun.Instance?.GlobalUi?.TopBar;
+            if (topBar == null || !GodotObject.IsInstanceValid(topBar))
+            {
+                return null;
+            }
+
+            MegaLabel? floorLabel = GetFloorLabel(topBar.FloorIcon);
+            TextureRect? roomIcon = GetRoomIcon(topBar.RoomIcon);
+            TextureRect? roomIconOutline = GetRoomIconOutline(topBar.RoomIcon);
+            if (floorLabel == null && roomIcon == null && roomIconOutline == null)
+            {
+                return null;
+            }
+
+            return new TopBarLocationSnapshot(
+                floorLabel?.Text,
+                roomIcon?.Texture,
+                roomIcon?.Visible ?? false,
+                roomIconOutline?.Texture,
+                roomIconOutline?.Visible ?? false,
+                topBar.RoomIcon.FocusMode,
+                topBar.RoomIcon.MouseFilter);
+        }
+
+        public void Apply(NTopBar topBar, IRunState runState)
+        {
+            if (!GodotObject.IsInstanceValid(topBar))
+            {
+                return;
+            }
+
+            MegaLabel? floorLabel = GetFloorLabel(topBar.FloorIcon);
+            if (floorLabel != null)
+            {
+                string floorText = !string.IsNullOrWhiteSpace(FloorText)
+                    ? FloorText
+                    : runState.TotalFloor.ToString();
+                floorLabel.SetTextAutoSize(floorText);
+            }
+
+            TextureRect? roomIcon = GetRoomIcon(topBar.RoomIcon);
+            if (roomIcon != null)
+            {
+                roomIcon.Texture = RoomIconTexture;
+                roomIcon.Visible = RoomIconVisible;
+            }
+
+            TextureRect? roomIconOutline = GetRoomIconOutline(topBar.RoomIcon);
+            if (roomIconOutline != null)
+            {
+                roomIconOutline.Texture = RoomIconOutlineTexture;
+                roomIconOutline.Visible = RoomIconOutlineVisible;
+            }
+
+            topBar.RoomIcon.FocusMode = RoomIconFocusMode;
+            topBar.RoomIcon.MouseFilter = RoomIconMouseFilter;
+        }
+
+        private static MegaLabel? GetFloorLabel(NTopBarFloorIcon floorIcon)
+        {
+            return GodotObject.IsInstanceValid(floorIcon)
+                ? FloorNumLabelAccessor.GetValue(floorIcon) as MegaLabel
+                : null;
+        }
+
+        private static TextureRect? GetRoomIcon(NTopBarRoomIcon roomIcon)
+        {
+            return GodotObject.IsInstanceValid(roomIcon)
+                ? RoomIconAccessor.GetValue(roomIcon) as TextureRect
+                : null;
+        }
+
+        private static TextureRect? GetRoomIconOutline(NTopBarRoomIcon roomIcon)
+        {
+            return GodotObject.IsInstanceValid(roomIcon)
+                ? RoomIconOutlineAccessor.GetValue(roomIcon) as TextureRect
+                : null;
         }
     }
 }

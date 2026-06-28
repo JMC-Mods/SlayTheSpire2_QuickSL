@@ -76,6 +76,7 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
 
             fadedOut = await QuickSlTransitionGuard.FadeOutAsync(game.Transition, useFastMode, useInstantCover);
 
+            using IDisposable stableTopBarLocation = QuickSlSceneReloadGuard.PreserveStableTopBarLocation();
             QuickSlSceneReloadGuard.PrepareCurrentHandForSceneSwap();
             DisposeNetworkPreservedRunSystems(runManager);
 

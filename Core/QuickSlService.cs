@@ -130,6 +130,7 @@ public static class QuickSlService
 
             fadedOut = await QuickSlTransitionGuard.FadeOutAsync(game.Transition, useFastMode, useInstantCover);
 
+            using IDisposable stableTopBarLocation = QuickSlSceneReloadGuard.PreserveStableTopBarLocation();
             QuickSlSceneReloadGuard.PrepareCurrentHandForSceneSwap();
             QuickSlRunManagerCompat.CleanUpForQuickSlReload(runManager);
             cleanedUp = true;
