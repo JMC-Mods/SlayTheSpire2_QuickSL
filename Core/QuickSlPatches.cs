@@ -182,12 +182,8 @@ internal static class QuickSlTransitionGuard
 internal static class QuickSlSceneReloadGuard
 {
     private static readonly object TopBarLocationSnapshotLock = new();
-    private static readonly MemberAccessor FloorNumLabelAccessor =
-        MemberAccessor.Get(typeof(NTopBarFloorIcon), "_floorNumLabel");
-    private static readonly MemberAccessor RoomIconAccessor =
-        MemberAccessor.Get(typeof(NTopBarRoomIcon), "_roomIcon");
-    private static readonly MemberAccessor RoomIconOutlineAccessor =
-        MemberAccessor.Get(typeof(NTopBarRoomIcon), "_roomIconOutline");
+    private static readonly Lazy<TopBarLocationAccessors?> TopBarLocationAccessorsValue =
+        new(TryCreateTopBarLocationAccessors);
 
     private static int suppressLateHandLayoutRefreshDepth;
     private static int preserveTopBarLocationDepth;
@@ -198,6 +194,8 @@ internal static class QuickSlSceneReloadGuard
         Interlocked.Increment(ref suppressLateHandLayoutRefreshDepth);
         return new LateHandLayoutRefreshSuppression();
     }
+
+    private static TopBarLocationAccessors? TopBarLocationAccessorsOrNull => TopBarLocationAccessorsValue.Value;
 
     public static IDisposable PreserveStableTopBarLocation()
     {
@@ -248,6 +246,22 @@ internal static class QuickSlSceneReloadGuard
         catch (Exception ex)
         {
             ModLogger.Warn("快速 SL：恢复 TopBar 层数与房间图标显示失败，将继续执行 SL。", ex);
+        }
+    }
+
+    private static TopBarLocationAccessors? TryCreateTopBarLocationAccessors()
+    {
+        try
+        {
+            return new TopBarLocationAccessors(
+                MemberAccessor.Get(typeof(NTopBarFloorIcon), "_floorNumLabel"),
+                MemberAccessor.Get(typeof(NTopBarRoomIcon), "_roomIcon"),
+                MemberAccessor.Get(typeof(NTopBarRoomIcon), "_roomIconOutline"));
+        }
+        catch (Exception ex)
+        {
+            ModLogger.Warn($"快速 SL：当前游戏版本的 TopBar 内部字段已变化，将禁用层数与房间图标快照修复：{ex.Message}");
+            return null;
         }
     }
 
@@ -371,6 +385,11 @@ internal static class QuickSlSceneReloadGuard
         }
     }
 
+    private sealed record TopBarLocationAccessors(
+        MemberAccessor FloorNumLabel,
+        MemberAccessor RoomIcon,
+        MemberAccessor RoomIconOutline);
+
     private sealed record TopBarLocationSnapshot(
         string? FloorText,
         Texture2D? RoomIconTexture,
@@ -382,38 +401,58 @@ internal static class QuickSlSceneReloadGuard
     {
         public static TopBarLocationSnapshot? Capture()
         {
-            NTopBar? topBar = NRun.Instance?.GlobalUi?.TopBar;
-            if (topBar == null || !GodotObject.IsInstanceValid(topBar))
+            try
             {
+                TopBarLocationAccessors? accessors = TopBarLocationAccessorsOrNull;
+                if (accessors == null)
+                {
+                    return null;
+                }
+
+                NTopBar? topBar = NRun.Instance?.GlobalUi?.TopBar;
+                if (topBar == null || !GodotObject.IsInstanceValid(topBar))
+                {
+                    return null;
+                }
+
+                MegaLabel? floorLabel = GetFloorLabel(accessors, topBar.FloorIcon);
+                TextureRect? roomIcon = GetRoomIcon(accessors, topBar.RoomIcon);
+                TextureRect? roomIconOutline = GetRoomIconOutline(accessors, topBar.RoomIcon);
+                if (floorLabel == null && roomIcon == null && roomIconOutline == null)
+                {
+                    return null;
+                }
+
+                return new TopBarLocationSnapshot(
+                    floorLabel?.Text,
+                    roomIcon?.Texture,
+                    roomIcon?.Visible ?? false,
+                    roomIconOutline?.Texture,
+                    roomIconOutline?.Visible ?? false,
+                    topBar.RoomIcon.FocusMode,
+                    topBar.RoomIcon.MouseFilter);
+            }
+            catch (Exception ex)
+            {
+                ModLogger.Warn("快速 SL：读取旧 TopBar 层数与房间图标失败，将跳过本次快照修复。", ex);
                 return null;
             }
-
-            MegaLabel? floorLabel = GetFloorLabel(topBar.FloorIcon);
-            TextureRect? roomIcon = GetRoomIcon(topBar.RoomIcon);
-            TextureRect? roomIconOutline = GetRoomIconOutline(topBar.RoomIcon);
-            if (floorLabel == null && roomIcon == null && roomIconOutline == null)
-            {
-                return null;
-            }
-
-            return new TopBarLocationSnapshot(
-                floorLabel?.Text,
-                roomIcon?.Texture,
-                roomIcon?.Visible ?? false,
-                roomIconOutline?.Texture,
-                roomIconOutline?.Visible ?? false,
-                topBar.RoomIcon.FocusMode,
-                topBar.RoomIcon.MouseFilter);
         }
 
         public void Apply(NTopBar topBar, IRunState runState)
         {
+            TopBarLocationAccessors? accessors = TopBarLocationAccessorsOrNull;
+            if (accessors == null)
+            {
+                return;
+            }
+
             if (!GodotObject.IsInstanceValid(topBar))
             {
                 return;
             }
 
-            MegaLabel? floorLabel = GetFloorLabel(topBar.FloorIcon);
+            MegaLabel? floorLabel = GetFloorLabel(accessors, topBar.FloorIcon);
             if (floorLabel != null)
             {
                 string floorText = !string.IsNullOrWhiteSpace(FloorText)
@@ -422,14 +461,14 @@ internal static class QuickSlSceneReloadGuard
                 floorLabel.SetTextAutoSize(floorText);
             }
 
-            TextureRect? roomIcon = GetRoomIcon(topBar.RoomIcon);
+            TextureRect? roomIcon = GetRoomIcon(accessors, topBar.RoomIcon);
             if (roomIcon != null)
             {
                 roomIcon.Texture = RoomIconTexture;
                 roomIcon.Visible = RoomIconVisible;
             }
 
-            TextureRect? roomIconOutline = GetRoomIconOutline(topBar.RoomIcon);
+            TextureRect? roomIconOutline = GetRoomIconOutline(accessors, topBar.RoomIcon);
             if (roomIconOutline != null)
             {
                 roomIconOutline.Texture = RoomIconOutlineTexture;
@@ -440,24 +479,24 @@ internal static class QuickSlSceneReloadGuard
             topBar.RoomIcon.MouseFilter = RoomIconMouseFilter;
         }
 
-        private static MegaLabel? GetFloorLabel(NTopBarFloorIcon floorIcon)
+        private static MegaLabel? GetFloorLabel(TopBarLocationAccessors accessors, NTopBarFloorIcon floorIcon)
         {
             return GodotObject.IsInstanceValid(floorIcon)
-                ? FloorNumLabelAccessor.GetValue(floorIcon) as MegaLabel
+                ? accessors.FloorNumLabel.GetValue(floorIcon) as MegaLabel
                 : null;
         }
 
-        private static TextureRect? GetRoomIcon(NTopBarRoomIcon roomIcon)
+        private static TextureRect? GetRoomIcon(TopBarLocationAccessors accessors, NTopBarRoomIcon roomIcon)
         {
             return GodotObject.IsInstanceValid(roomIcon)
-                ? RoomIconAccessor.GetValue(roomIcon) as TextureRect
+                ? accessors.RoomIcon.GetValue(roomIcon) as TextureRect
                 : null;
         }
 
-        private static TextureRect? GetRoomIconOutline(NTopBarRoomIcon roomIcon)
+        private static TextureRect? GetRoomIconOutline(TopBarLocationAccessors accessors, NTopBarRoomIcon roomIcon)
         {
             return GodotObject.IsInstanceValid(roomIcon)
-                ? RoomIconOutlineAccessor.GetValue(roomIcon) as TextureRect
+                ? accessors.RoomIconOutline.GetValue(roomIcon) as TextureRect
                 : null;
         }
     }
