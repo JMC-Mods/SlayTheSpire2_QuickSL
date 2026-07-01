@@ -1,0 +1,12 @@
+{
+  "title": "QuickSL",
+  "description": "提供可配置热键的快速 SL：重新载入当前局存档，效果等同于保存并退出后继续游戏。",
+  "visibility": "public",
+  "changeNote": "适配正式MOD发布的格式迁移。",
+  "tags": [
+    "QoL"
+  ],
+  "dependencies": [
+    3747526103
+  ]
+}

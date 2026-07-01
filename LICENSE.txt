@@ -2,7 +2,7 @@ No Redistribution License
 
 Copyright (c) 2026 JMC. All rights reserved.
 
-Repository: https://github.com/JMC2002/SlayTheSpire2_QuickSL
+Repository: https://github.com/JMC-Mods/SlayTheSpire2_QuickSL
 
 中文
 

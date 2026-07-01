@@ -17,3 +17,11 @@ jobs:
     uses: JMC2002/STS2_Mods_Actions/.github/workflows/publish-quark.yml@main
     secrets:
       quark_cookie: ${{ secrets.QUARK_COOKIE }}
+
+  prepare-workshop:
+    needs: release
+    uses: JMC2002/STS2_Mods_Actions/.github/workflows/publish-workshop.yml@main
+    with:
+      version_info_path: Core/VersionInfo.cs
+      mod_path: QuickSL
+      dry_run: false
