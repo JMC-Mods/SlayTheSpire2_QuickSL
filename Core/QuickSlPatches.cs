@@ -91,11 +91,9 @@ internal static class NTransitionRoomFadeInPatch
 
 internal static class QuickSlTransitionGuard
 {
-    private const float InstantTransitionSeconds = 0f;
-
     private static int suppressTransitionDepth;
 
-    public static async Task<bool> FadeOutAsync(NTransition transition, bool useFastMode, bool useInstantCover)
+    public static async Task<bool> FadeOutAsync(NTransition transition, bool useFastMode)
     {
         if (!useFastMode)
         {
@@ -103,27 +101,15 @@ internal static class QuickSlTransitionGuard
             return true;
         }
 
-        if (!useInstantCover)
-        {
-            ModLogger.Debug("快速 SL：快速模式使用旧版裸跳过转场，重载过程可能短暂显示未稳定的界面。");
-            return false;
-        }
-
-        ModLogger.Debug("快速 SL：快速模式使用瞬时遮罩隐藏重载过程。");
-        await transition.FadeOut(InstantTransitionSeconds);
-        return true;
+        ModLogger.Debug("快速 SL：快速模式跳过载入前后的淡入淡出动画。");
+        return false;
     }
 
-    public static Task FadeInAsync(NTransition transition, bool useFastMode, bool useInstantCover)
+    public static Task FadeInAsync(NTransition transition, bool useFastMode)
     {
-        if (!useFastMode)
-        {
-            return transition.FadeIn();
-        }
-
-        return useInstantCover
-            ? transition.FadeIn(InstantTransitionSeconds)
-            : Task.CompletedTask;
+        return useFastMode
+            ? Task.CompletedTask
+            : transition.FadeIn();
     }
 
     public static IDisposable SuppressTransitions(bool shouldSuppress)

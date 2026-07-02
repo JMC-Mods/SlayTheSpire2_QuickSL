@@ -26,15 +26,6 @@ public static class QuickSlSettings
 
     [UIToggle]
     [Config(
-        "快速模式使用黑屏遮罩",
-        group: GeneralGroup,
-        Description = "开启时使用当前版本：瞬时黑屏遮住重载过程；关闭时使用旧版裸跳过转场，可能更快但可能短暂显示错误图标。",
-        Key = "general.fast_mode_use_instant_cover",
-        Order = 6)]
-    public static bool FastModeUseInstantCover = true;
-
-    [UIToggle]
-    [Config(
         "发起多人 SL 时询问客机",
         group: MultiplayerGroup,
         Description = "作为主机发起多人快速 SL 时，先弹窗询问所有已连接客机；关闭后会直接通知客机同步 SL。",

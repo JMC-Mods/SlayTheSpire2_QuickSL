@@ -5,8 +5,6 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.general": "General",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.NAME": "Modo rapido",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.DESCRIPTION": "Omite las animaciones de fundido de Quick Save Load. Desactivalo para mantener la transicion actual.",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode_use_instant_cover.NAME": "Usar cubierta negra instantanea",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode_use_instant_cover.DESCRIPTION": "Activado usa la version actual con una cubierta negra instantanea durante la recarga. Desactivado usa el salto antiguo sin cubierta, que puede ser mas rapido pero puede mostrar iconos rotos brevemente.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Multijugador",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Preguntar a clientes antes del SL multijugador",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "Como anfitrion, pregunta a todos los clientes conectados antes del Quick Save Load; si se desactiva, se les indicara recargar de inmediato.",

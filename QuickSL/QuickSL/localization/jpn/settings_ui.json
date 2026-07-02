@@ -5,8 +5,6 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.general": "一般",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.NAME": "高速モード",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.DESCRIPTION": "Quick Save Load 前後のフェードアニメーションをスキップします。オフにすると現在の演出を維持します。",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode_use_instant_cover.NAME": "瞬時の黒画面カバーを使う",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode_use_instant_cover.DESCRIPTION": "オンでは現在版の瞬時黒画面カバーで再読み込み中を隠します。オフでは旧版のカバーなしスキップになり、少し速い可能性がありますが、一瞬壊れたアイコンが見えることがあります。",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "マルチプレイ",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "マルチプレイSL前にクライアントへ確認",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "ホスト時、Quick Save Load の前に接続中の全クライアントへ確認します。オフの場合はすぐに再読み込みを通知します。",

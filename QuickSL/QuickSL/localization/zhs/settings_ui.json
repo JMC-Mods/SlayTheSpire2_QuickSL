@@ -5,8 +5,6 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.general": "通用",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.NAME": "快速模式",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.DESCRIPTION": "开启后快速 SL 会跳过载入前后的淡入淡出动画；关闭后保持当前动画效果。",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode_use_instant_cover.NAME": "快速模式使用黑屏遮罩",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode_use_instant_cover.DESCRIPTION": "开启时使用当前版本：瞬时黑屏遮住重载过程；关闭时使用旧版裸跳过转场，可能更快但可能短暂显示错误图标。",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "多人",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "多人 SL 前询问客机",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "作为主机发起多人快速 SL 时，先弹窗询问所有已连接客机；关闭后会直接通知客机同步 SL。",

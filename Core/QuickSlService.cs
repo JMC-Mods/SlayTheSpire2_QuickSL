@@ -62,7 +62,6 @@ public static class QuickSlService
         bool fadedOut = false;
         bool cleanedUp = false;
         bool useFastMode = QuickSlSettings.FastMode;
-        bool useInstantCover = QuickSlSettings.FastModeUseInstantCover;
 
         try
         {
@@ -128,7 +127,7 @@ public static class QuickSlService
             runManager.ActionQueueSet.Reset();
             NRunMusicController.Instance?.StopMusic();
 
-            fadedOut = await QuickSlTransitionGuard.FadeOutAsync(game.Transition, useFastMode, useInstantCover);
+            fadedOut = await QuickSlTransitionGuard.FadeOutAsync(game.Transition, useFastMode);
 
             using IDisposable stableTopBarLocation = QuickSlSceneReloadGuard.PreserveStableTopBarLocation();
             QuickSlSceneReloadGuard.PrepareCurrentHandForSceneSwap();
@@ -143,7 +142,7 @@ public static class QuickSlService
                 await game.LoadRun(runState, runSave.PreFinishedRoom);
             }
 
-            await QuickSlTransitionGuard.FadeInAsync(game.Transition, useFastMode, useInstantCover);
+            await QuickSlTransitionGuard.FadeInAsync(game.Transition, useFastMode);
             fadedOut = false;
 
             ModLogger.Info("快速 SL 完成。");
@@ -151,11 +150,11 @@ public static class QuickSlService
         catch (Exception ex)
         {
             ModLogger.Error("快速 SL 执行失败。", ex);
-            await TryRecoverAsync(fadedOut, cleanedUp, useFastMode, useInstantCover);
+            await TryRecoverAsync(fadedOut, cleanedUp, useFastMode);
         }
     }
 
-    private static async Task TryRecoverAsync(bool fadedOut, bool cleanedUp, bool useFastMode, bool useInstantCover)
+    private static async Task TryRecoverAsync(bool fadedOut, bool cleanedUp, bool useFastMode)
     {
         try
         {
@@ -172,7 +171,7 @@ public static class QuickSlService
 
             if (fadedOut)
             {
-                await QuickSlTransitionGuard.FadeInAsync(game.Transition, useFastMode, useInstantCover);
+                await QuickSlTransitionGuard.FadeInAsync(game.Transition, useFastMode);
             }
         }
         catch (Exception ex)

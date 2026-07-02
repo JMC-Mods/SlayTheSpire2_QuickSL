@@ -5,8 +5,6 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.general": "Общие",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.NAME": "Быстрый режим",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.DESCRIPTION": "Пропускает анимации затемнения вокруг Quick Save Load. Отключите, чтобы сохранить текущий переход.",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode_use_instant_cover.NAME": "Использовать мгновенный черный экран",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode_use_instant_cover.DESCRIPTION": "Включено: текущая версия с мгновенным черным экраном во время перезагрузки. Выключено: старый пропуск без экрана, возможно быстрее, но на миг могут появляться сломанные значки.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Сетевая игра",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Спрашивать клиентов перед сетевым SL",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "Если вы хост, спрашивает всех подключенных клиентов перед Quick Save Load; если выключено, клиенты сразу получают команду перезагрузки.",

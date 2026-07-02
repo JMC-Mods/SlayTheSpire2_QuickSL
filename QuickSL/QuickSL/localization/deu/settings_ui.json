@@ -5,8 +5,6 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.general": "Allgemein",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.NAME": "Schneller Modus",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.DESCRIPTION": "Ueberspringt die Fade-Animationen beim Quick Save Load. Deaktivieren, um die bisherigen Uebergaenge zu behalten.",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode_use_instant_cover.NAME": "Sofortige schwarze Maske verwenden",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode_use_instant_cover.DESCRIPTION": "Ein: aktuelle Version mit sofortiger schwarzer Maske waehrend des Neuladens. Aus: alte Variante ohne Maske, eventuell schneller, kann aber kurz fehlerhafte Symbole zeigen.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Mehrspieler",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Clients vor Mehrspieler-SL fragen",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "Fragt als Host alle verbundenen Clients vor Quick Save Load; wenn deaktiviert, werden Clients direkt zum Neuladen aufgefordert.",

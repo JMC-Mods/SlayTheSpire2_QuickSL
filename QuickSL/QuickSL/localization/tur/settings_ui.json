@@ -5,8 +5,6 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.general": "Genel",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.NAME": "Hizli mod",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.DESCRIPTION": "Quick Save Load sirasindaki solma animasyonlarini atlar. Gecerli gecisi korumak icin kapatin.",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode_use_instant_cover.NAME": "Aninda siyah perde kullan",
-  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode_use_instant_cover.DESCRIPTION": "Acikken yeniden yukleme sirasinda aninda siyah perde kullanan mevcut surumu kullanir. Kapaliyken eski perdesiz atlama kullanilir; daha hizli olabilir ama bozuk simgeler kisa sure gorunebilir.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Cok oyunculu",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Cok oyunculu SL oncesi istemcilere sor",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "Host iken Quick Save Load oncesi bagli tum istemcilere sorar; kapaliysa istemcilere hemen yeniden yukleme bildirilir.",
