@@ -22,7 +22,7 @@ public static class QuickSlSettings
         Description = "开启后快速 SL 会跳过载入前后的淡入淡出动画；关闭后保持当前动画效果。",
         Key = "general.fast_mode",
         Order = 5)]
-    public static bool FastMode = false;
+    public static bool FastMode = true;
 
     [UIToggle]
     [Config(
