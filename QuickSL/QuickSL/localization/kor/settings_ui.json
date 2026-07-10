@@ -6,6 +6,8 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.NAME": "빠른 모드",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.DESCRIPTION": "Quick Save Load 전후의 페이드 애니메이션을 건너뜁니다. 끄면 현재 전환 효과를 유지합니다.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "멀티플레이",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.enabled.NAME": "멀티플레이 Quick SL 활성화",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.enabled.DESCRIPTION": "Quick SL의 멀티플레이 기능을 활성화합니다. 온라인 세션 중 변경한 내용은 완전히 연결을 끊은 뒤 적용됩니다.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "멀티플레이 SL 전에 클라이언트 확인",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "호스트일 때 Quick Save Load 전에 접속 중인 모든 클라이언트에게 확인합니다. 끄면 즉시 다시 불러오도록 알립니다.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "클라이언트 시작 멀티플레이 SL 허용",

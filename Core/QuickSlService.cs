@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Audio;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves;
+using QuickSL.UI;
 
 namespace QuickSL.Core;
 
@@ -35,12 +36,26 @@ public static class QuickSlService
             NetGameType netType = RunManager.Instance.NetService.Type;
             if (netType == NetGameType.Host)
             {
+                if (!QuickSlMultiplayerFeature.IsEnabled)
+                {
+                    ModLogger.Warn("多人快速 SL 未启用，本次操作不会回退到单人 SL。");
+                    await QuickSlPopupService.ShowMultiplayerFeatureDisabledAsync();
+                    return;
+                }
+
                 await MultiplayerQuickSlCoordinator.RunHostAsync();
                 return;
             }
 
             if (netType == NetGameType.Client)
             {
+                if (!QuickSlMultiplayerFeature.IsEnabled)
+                {
+                    ModLogger.Warn("多人快速 SL 未启用，本次操作不会回退到单人 SL。");
+                    await QuickSlPopupService.ShowMultiplayerFeatureDisabledAsync();
+                    return;
+                }
+
                 await MultiplayerQuickSlCoordinator.RunClientAsync();
                 return;
             }

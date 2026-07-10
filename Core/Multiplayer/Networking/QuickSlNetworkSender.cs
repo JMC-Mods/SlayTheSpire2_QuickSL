@@ -10,13 +10,7 @@ internal sealed class QuickSlNetworkSender
     public void SendClientVote(uint requestId, bool approved)
     {
         INetGameService netService = RunManager.Instance.NetService;
-        if (!netService.IsConnected)
-        {
-            ModLogger.Warn($"多人快速 SL：当前网络服务已断开，无法发送确认结果 RequestId={requestId}。");
-            return;
-        }
-
-        netService.SendMessage(new QuickSlVoteMessage
+        TrySendClientMessage(netService, new QuickSlVoteMessage
         {
             RequestId = requestId,
             Approved = approved
@@ -110,8 +104,14 @@ internal sealed class QuickSlNetworkSender
     }
 
     public void TrySendHostMessage<T>(INetHostGameService hostService, T message, ulong playerId)
-        where T : INetMessage
+        where T : IQuickSlNetworkMessage
     {
+        if (!QuickSlMultiplayerFeature.IsEnabled)
+        {
+            ModLogger.Warn($"多人快速 SL：网络功能当前未生效，跳过发送 {typeof(T).Name} 给 {playerId}。");
+            return;
+        }
+
         if (!hostService.IsConnected)
         {
             ModLogger.Warn($"多人快速 SL：主机网络服务已断开，跳过发送 {typeof(T).Name} 给 {playerId}。");
@@ -128,8 +128,40 @@ internal sealed class QuickSlNetworkSender
         }
     }
 
+    public bool TrySendClientMessage<T>(INetGameService netService, T message)
+        where T : IQuickSlNetworkMessage
+    {
+        if (!QuickSlMultiplayerFeature.IsEnabled)
+        {
+            ModLogger.Warn($"多人快速 SL：网络功能当前未生效，跳过发送 {typeof(T).Name}。");
+            return false;
+        }
+
+        if (!netService.IsConnected)
+        {
+            ModLogger.Warn($"多人快速 SL：当前网络服务已断开，跳过发送 {typeof(T).Name}。");
+            return false;
+        }
+
+        try
+        {
+            netService.SendMessage(message);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            ModLogger.Warn($"多人快速 SL：发送 {typeof(T).Name} 失败：{ex.Message}");
+            return false;
+        }
+    }
+
     public bool IsExecuteSenderValid(ulong senderId)
     {
+        if (!QuickSlMultiplayerFeature.IsEnabled)
+        {
+            return false;
+        }
+
         INetGameService netService = RunManager.Instance.NetService;
         return netService.Type switch
         {

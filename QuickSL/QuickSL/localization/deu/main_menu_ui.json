@@ -26,5 +26,8 @@
   "EXTENSION.QUICKSL.MULTIPLAYER_CANCELLED.title": "Quick Save Load abgebrochen",
   "EXTENSION.QUICKSL.MULTIPLAYER_CANCELLED.body": "Dieser Quick Save Load wurde abgebrochen.",
   "EXTENSION.QUICKSL.MULTIPLAYER_CANCELLED.ok": "OK",
+  "EXTENSION.QUICKSL.MULTIPLAYER_FEATURE_DISABLED.title": "Mehrspieler-Quick-SL ist nicht aktiv",
+  "EXTENSION.QUICKSL.MULTIPLAYER_FEATURE_DISABLED.body": "Mehrspieler-Quick-SL ist derzeit nicht aktiv. Aktiviere es in den MOD-Einstellungen. Eine Änderung während einer Online-Sitzung wird erst nach dem vollständigen Trennen der Verbindung wirksam.",
+  "EXTENSION.QUICKSL.MULTIPLAYER_FEATURE_DISABLED.ok": "OK",
   "EXTENSION.QUICKSL.MULTIPLAYER_PLAYER_UNKNOWN": "ein anderer Spieler"
 }

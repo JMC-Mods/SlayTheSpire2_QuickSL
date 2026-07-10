@@ -54,25 +54,22 @@ internal sealed class QuickSlClientFlow(QuickSlMultiplayerController controller)
         var initiateState = new ClientInitiateState(clientRequestId);
         State.ClientInitiateState = initiateState;
 
-        try
-        {
-            clientService.SendMessage(new QuickSlInitiateMessage
-            {
-                ClientRequestId = clientRequestId
-            });
-
-            ModLogger.Info($"多人快速 SL：已向主机发起 SL 请求，ClientRequestId={clientRequestId}。");
-        }
-        catch (Exception ex)
+        if (!Sender.TrySendClientMessage(
+                clientService,
+                new QuickSlInitiateMessage
+                {
+                    ClientRequestId = clientRequestId
+                }))
         {
             if (ReferenceEquals(State.ClientInitiateState, initiateState))
             {
                 State.ClientInitiateState = null;
             }
 
-            ModLogger.Warn($"多人快速 SL：向主机发送发起请求失败：{ex.Message}");
+            return Task.CompletedTask;
         }
 
+        ModLogger.Info($"多人快速 SL：已向主机发起 SL 请求，ClientRequestId={clientRequestId}。");
         return Task.CompletedTask;
     }
 

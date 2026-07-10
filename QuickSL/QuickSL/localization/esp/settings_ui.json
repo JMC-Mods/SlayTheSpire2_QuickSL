@@ -6,6 +6,8 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.NAME": "Modo rapido",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.DESCRIPTION": "Omite las animaciones de fundido de Quick Save Load. Desactivalo para mantener la transicion actual.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Multijugador",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.enabled.NAME": "Activar Quick SL multijugador",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.enabled.DESCRIPTION": "Activa las funciones multijugador de Quick SL. Los cambios realizados durante una sesión en línea solo se aplican tras desconectarse por completo.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Preguntar a clientes antes del SL multijugador",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "Como anfitrion, pregunta a todos los clientes conectados antes del Quick Save Load; si se desactiva, se les indicara recargar de inmediato.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Permitir SL multijugador iniciado por clientes",

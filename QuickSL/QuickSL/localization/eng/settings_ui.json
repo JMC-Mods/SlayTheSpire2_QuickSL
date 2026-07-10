@@ -6,6 +6,8 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.NAME": "Fast mode",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.DESCRIPTION": "Skips the fade animations around Quick Save Load. Turn off to keep the current transition.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Multiplayer",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.enabled.NAME": "Enable multiplayer Quick SL",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.enabled.DESCRIPTION": "Enables multiplayer features for Quick SL. Changes made during an online session take effect only after fully disconnecting.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Ask clients before multiplayer SL",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "When hosting, ask all connected clients before Quick Save Load; when disabled, clients are told to reload immediately.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Allow client-initiated multiplayer SL",

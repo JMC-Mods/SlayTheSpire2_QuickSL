@@ -5,6 +5,10 @@ using System.Text;
 
 namespace QuickSL.Core;
 
+internal interface IQuickSlNetworkMessage : INetMessage
+{
+}
+
 internal enum QuickSlCancelReason : byte
 {
     Rejected = 0,
@@ -13,7 +17,7 @@ internal enum QuickSlCancelReason : byte
     Disabled = 3
 }
 
-internal struct QuickSlInitiateMessage : INetMessage
+internal struct QuickSlInitiateMessage : IQuickSlNetworkMessage
 {
     public uint ClientRequestId;
 
@@ -33,7 +37,7 @@ internal struct QuickSlInitiateMessage : INetMessage
     }
 }
 
-internal struct QuickSlInitiatePendingMessage : INetMessage
+internal struct QuickSlInitiatePendingMessage : IQuickSlNetworkMessage
 {
     public uint ClientRequestId;
 
@@ -53,7 +57,7 @@ internal struct QuickSlInitiatePendingMessage : INetMessage
     }
 }
 
-internal struct QuickSlInitiateResponseMessage : INetMessage
+internal struct QuickSlInitiateResponseMessage : IQuickSlNetworkMessage
 {
     public uint ClientRequestId;
     public uint HostRequestId;
@@ -85,7 +89,7 @@ internal struct QuickSlInitiateResponseMessage : INetMessage
     }
 }
 
-internal struct QuickSlRequestMessage : INetMessage
+internal struct QuickSlRequestMessage : IQuickSlNetworkMessage
 {
     public uint RequestId;
     public bool RequiresClientConfirmation;
@@ -111,7 +115,7 @@ internal struct QuickSlRequestMessage : INetMessage
     }
 }
 
-internal struct QuickSlVoteMessage : INetMessage
+internal struct QuickSlVoteMessage : IQuickSlNetworkMessage
 {
     public uint RequestId;
     public bool Approved;
@@ -134,7 +138,7 @@ internal struct QuickSlVoteMessage : INetMessage
     }
 }
 
-internal struct QuickSlExecuteMessage : INetMessage
+internal struct QuickSlExecuteMessage : IQuickSlNetworkMessage
 {
     private const int MaxParticipantCount = 32;
     public const int MaxRunSaveJsonBytes = 1024 * 1024;
@@ -205,7 +209,7 @@ internal struct QuickSlExecuteMessage : INetMessage
     }
 }
 
-internal struct QuickSlLoadReadyMessage : INetMessage
+internal struct QuickSlLoadReadyMessage : IQuickSlNetworkMessage
 {
     public uint RequestId;
 
@@ -225,7 +229,7 @@ internal struct QuickSlLoadReadyMessage : INetMessage
     }
 }
 
-internal struct QuickSlLoadBeginMessage : INetMessage
+internal struct QuickSlLoadBeginMessage : IQuickSlNetworkMessage
 {
     public uint RequestId;
 
@@ -245,7 +249,7 @@ internal struct QuickSlLoadBeginMessage : INetMessage
     }
 }
 
-internal struct QuickSlSetupReadyMessage : INetMessage
+internal struct QuickSlSetupReadyMessage : IQuickSlNetworkMessage
 {
     public uint RequestId;
 
@@ -265,7 +269,7 @@ internal struct QuickSlSetupReadyMessage : INetMessage
     }
 }
 
-internal struct QuickSlRunBeginMessage : INetMessage
+internal struct QuickSlRunBeginMessage : IQuickSlNetworkMessage
 {
     public uint RequestId;
 
@@ -285,7 +289,7 @@ internal struct QuickSlRunBeginMessage : INetMessage
     }
 }
 
-internal struct QuickSlCancelMessage : INetMessage
+internal struct QuickSlCancelMessage : IQuickSlNetworkMessage
 {
     public uint RequestId;
     public QuickSlCancelReason Reason;

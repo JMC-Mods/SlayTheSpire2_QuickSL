@@ -10,6 +10,11 @@ internal sealed class QuickSlNetworkMessageRouter(QuickSlMultiplayerController c
 
     public void RegisterHandlers(INetGameService netService)
     {
+        if (!QuickSlMultiplayerFeature.IsEnabled)
+        {
+            return;
+        }
+
         if (ReferenceEquals(State.RegisteredNetService, netService))
         {
             return;
@@ -32,7 +37,7 @@ internal sealed class QuickSlNetworkMessageRouter(QuickSlMultiplayerController c
         ModLogger.Debug($"多人快速 SL：已注册网络消息处理器，模式={netService.Type}。");
     }
 
-    private void UnregisterHandlers()
+    internal void UnregisterHandlers()
     {
         if (State.RegisteredNetService == null)
         {

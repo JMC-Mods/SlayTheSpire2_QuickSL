@@ -26,5 +26,8 @@
   "EXTENSION.QUICKSL.MULTIPLAYER_CANCELLED.title": "Quick Save Load はキャンセルされました",
   "EXTENSION.QUICKSL.MULTIPLAYER_CANCELLED.body": "この Quick Save Load はキャンセルされました。",
   "EXTENSION.QUICKSL.MULTIPLAYER_CANCELLED.ok": "OK",
+  "EXTENSION.QUICKSL.MULTIPLAYER_FEATURE_DISABLED.title": "マルチプレイ Quick SL は無効です",
+  "EXTENSION.QUICKSL.MULTIPLAYER_FEATURE_DISABLED.body": "マルチプレイ Quick SL は現在有効ではありません。MOD設定で有効にしてください。オンラインセッション中に変更した場合は、完全に切断した後に反映されます。",
+  "EXTENSION.QUICKSL.MULTIPLAYER_FEATURE_DISABLED.ok": "了解",
   "EXTENSION.QUICKSL.MULTIPLAYER_PLAYER_UNKNOWN": "ほかのプレイヤー"
 }

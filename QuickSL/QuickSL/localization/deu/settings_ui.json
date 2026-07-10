@@ -6,6 +6,8 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.NAME": "Schneller Modus",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.DESCRIPTION": "Ueberspringt die Fade-Animationen beim Quick Save Load. Deaktivieren, um die bisherigen Uebergaenge zu behalten.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Mehrspieler",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.enabled.NAME": "Mehrspieler-Quick-SL aktivieren",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.enabled.DESCRIPTION": "Aktiviert die Mehrspielerfunktionen von Quick SL. Änderungen während einer Online-Sitzung werden erst nach dem vollständigen Trennen der Verbindung wirksam.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Clients vor Mehrspieler-SL fragen",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "Fragt als Host alle verbundenen Clients vor Quick Save Load; wenn deaktiviert, werden Clients direkt zum Neuladen aufgefordert.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Clientgestartetes Mehrspieler-SL erlauben",

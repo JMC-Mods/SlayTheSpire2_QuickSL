@@ -44,6 +44,11 @@ internal sealed class QuickSlMultiplayerController
 
     public void EnsureHandlersRegistered()
     {
+        if (!QuickSlMultiplayerFeature.IsEnabled)
+        {
+            return;
+        }
+
         try
         {
             if (RunManager.Instance?.NetService is not { } netService)
@@ -66,14 +71,36 @@ internal sealed class QuickSlMultiplayerController
 
     public async Task RunHostAsync()
     {
+        if (!QuickSlMultiplayerFeature.IsEnabled)
+        {
+            return;
+        }
+
         EnsureHandlersRegistered();
         await Host.RunHostAsync();
     }
 
     public Task RunClientAsync()
     {
+        if (!QuickSlMultiplayerFeature.IsEnabled)
+        {
+            return Task.CompletedTask;
+        }
+
         EnsureHandlersRegistered();
         return Client.RunClientAsync();
+    }
+
+    internal void HandleFeatureStateChanged(bool enabled)
+    {
+        if (enabled)
+        {
+            return;
+        }
+
+        Router.UnregisterHandlers();
+        State.ResetForDisconnected();
+        QuickSlPopupService.CloseAllWaiting();
     }
 
     internal uint CreateRequestId()

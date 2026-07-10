@@ -180,10 +180,13 @@ internal sealed class QuickSlLoadBarrierCoordinator(QuickSlMultiplayerController
 
         try
         {
-            netService.SendMessage(new QuickSlLoadReadyMessage
+            if (!Sender.TrySendClientMessage(netService, new QuickSlLoadReadyMessage
             {
                 RequestId = requestId
-            });
+            }))
+            {
+                throw new InvalidOperationException("多人快速 SL：无法向主机报告载入准备状态。");
+            }
 
             ModLogger.Debug($"多人快速 SL：已向主机报告载入准备完成，RequestId={requestId}。");
             await barrierState.WaitAsync(QuickSlMultiplayerController.LoadBarrierTimeout);
@@ -244,10 +247,13 @@ internal sealed class QuickSlLoadBarrierCoordinator(QuickSlMultiplayerController
 
         try
         {
-            netService.SendMessage(new QuickSlSetupReadyMessage
+            if (!Sender.TrySendClientMessage(netService, new QuickSlSetupReadyMessage
             {
                 RequestId = requestId
-            });
+            }))
+            {
+                throw new InvalidOperationException("多人快速 SL：无法向主机报告重载同步器准备状态。");
+            }
 
             ModLogger.Debug($"多人快速 SL：已向主机报告重载同步器就绪，RequestId={requestId}。");
             await barrierState.WaitAsync(QuickSlMultiplayerController.LoadBarrierTimeout);

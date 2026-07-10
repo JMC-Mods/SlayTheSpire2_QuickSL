@@ -120,6 +120,14 @@ internal static class QuickSlPopupService
             "MULTIPLAYER_CANCELLED.ok");
     }
 
+    public static Task ShowMultiplayerFeatureDisabledAsync()
+    {
+        return ShowMessageAsync(
+            "MULTIPLAYER_FEATURE_DISABLED.title",
+            Text("MULTIPLAYER_FEATURE_DISABLED.body"),
+            "MULTIPLAYER_FEATURE_DISABLED.ok");
+    }
+
     private static async Task<bool> ShowConfirmationAsync(
         string titleKey,
         string body,

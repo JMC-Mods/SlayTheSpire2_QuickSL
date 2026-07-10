@@ -6,6 +6,8 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.NAME": "Быстрый режим",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.DESCRIPTION": "Пропускает анимации затемнения вокруг Quick Save Load. Отключите, чтобы сохранить текущий переход.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Сетевая игра",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.enabled.NAME": "Включить сетевой Quick SL",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.enabled.DESCRIPTION": "Включает сетевые функции Quick SL. Изменения во время сетевой сессии вступят в силу только после полного отключения.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Спрашивать клиентов перед сетевым SL",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "Если вы хост, спрашивает всех подключенных клиентов перед Quick Save Load; если выключено, клиенты сразу получают команду перезагрузки.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Разрешить сетевой SL от клиентов",

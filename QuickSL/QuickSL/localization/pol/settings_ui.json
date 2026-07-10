@@ -6,6 +6,8 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.NAME": "Tryb szybki",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.DESCRIPTION": "Pomija animacje wygaszania przy Quick Save Load. Wylacz, aby zachowac obecne przejscie.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "Wieloosobowe",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.enabled.NAME": "Włącz Quick SL w trybie wieloosobowym",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.enabled.DESCRIPTION": "Włącza funkcje wieloosobowe Quick SL. Zmiany dokonane podczas sesji online zaczną obowiązywać dopiero po całkowitym rozłączeniu.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "Pytaj klientow przed SL wieloosobowym",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "Jako host pyta wszystkich polaczonych klientow przed Quick Save Load; po wylaczeniu klienci od razu dostana polecenie wczytania.",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "Zezwalaj na SL wieloosobowy od klientow",

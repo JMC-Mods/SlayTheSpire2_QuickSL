@@ -13,6 +13,7 @@ public partial class MainFile : Node
     public static void Initialize()
     {
         JmcModLib.Core.ModRegistry.Register<MainFile>();
+        QuickSlMultiplayerFeature.Initialize();
 
         new Harmony($"JMC.{VersionInfo.Name}").PatchAll(Assembly.GetExecutingAssembly());
 

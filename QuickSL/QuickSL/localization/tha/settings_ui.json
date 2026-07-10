@@ -6,6 +6,8 @@
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.NAME": "โหมดเร็ว",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.general.fast_mode.DESCRIPTION": "ข้ามแอนิเมชันเฟดระหว่าง Quick Save Load ปิดเพื่อใช้การเปลี่ยนฉากแบบเดิม",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.GROUP.multiplayer": "ผู้เล่นหลายคน",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.enabled.NAME": "เปิดใช้ Quick SL แบบผู้เล่นหลายคน",
+  "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.enabled.DESCRIPTION": "เปิดใช้ฟีเจอร์ผู้เล่นหลายคนของ Quick SL การเปลี่ยนแปลงระหว่างเซสชันออนไลน์จะมีผลหลังจากตัดการเชื่อมต่ออย่างสมบูรณ์แล้วเท่านั้น",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.NAME": "ถามลูกข่ายก่อน SL ผู้เล่นหลายคน",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.require_client_confirmation.DESCRIPTION": "เมื่อเป็นโฮสต์ ให้ถามลูกข่ายที่เชื่อมต่อทั้งหมดก่อน Quick Save Load; หากปิด จะสั่งให้ลูกข่ายโหลดใหม่ทันที",
   "EXTENSION.JMCMODLIB.CONFIG.QuickSL.multiplayer.allow_client_initiated_sl.NAME": "อนุญาต SL ผู้เล่นหลายคนจากลูกข่าย",

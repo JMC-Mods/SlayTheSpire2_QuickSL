@@ -18,4 +18,9 @@ internal static class MultiplayerQuickSlCoordinator
     {
         return Controller.RunClientAsync();
     }
+
+    internal static void HandleFeatureStateChanged(bool enabled)
+    {
+        Controller.HandleFeatureStateChanged(enabled);
+    }
 }

@@ -26,5 +26,8 @@
   "EXTENSION.QUICKSL.MULTIPLAYER_CANCELLED.title": "Quick Save Load cancelado",
   "EXTENSION.QUICKSL.MULTIPLAYER_CANCELLED.body": "Este Quick Save Load fue cancelado.",
   "EXTENSION.QUICKSL.MULTIPLAYER_CANCELLED.ok": "Aceptar",
+  "EXTENSION.QUICKSL.MULTIPLAYER_FEATURE_DISABLED.title": "Quick SL multijugador no está activo",
+  "EXTENSION.QUICKSL.MULTIPLAYER_FEATURE_DISABLED.body": "Quick SL multijugador no está activo actualmente. Actívalo en los ajustes de MOD. Si lo cambias durante una sesión en línea, se aplicará después de desconectarte por completo.",
+  "EXTENSION.QUICKSL.MULTIPLAYER_FEATURE_DISABLED.ok": "Aceptar",
   "EXTENSION.QUICKSL.MULTIPLAYER_PLAYER_UNKNOWN": "otro jugador"
 }

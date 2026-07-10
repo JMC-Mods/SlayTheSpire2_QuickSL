@@ -1,6 +1,7 @@
 using Godot;
 using JmcModLib.Config;
 using JmcModLib.Config.UI;
+using JmcModLib.Multiplayer;
 using JmcModLib.UI.PauseMenu;
 using JmcModLib.Utils;
 
@@ -24,6 +25,21 @@ public static class QuickSlSettings
         Order = 5)]
     public static bool FastMode = true;
 
+    [OptionalNetworkFeature(
+        QuickSlMultiplayerFeature.FeatureId,
+        typeof(IQuickSlNetworkMessage),
+        CompatibilityVersion = QuickSlMultiplayerFeature.CompatibilityVersion)]
+    [UIToggle]
+    [Config(
+        "启用多人快速 SL",
+        group: MultiplayerGroup,
+        Description = "启用快速 SL 的多人联机功能。联机期间修改此选项，需要完全断开联机后才会生效。",
+        Key = "multiplayer.enabled",
+        Order = 5,
+        RestartRequired = false)]
+    public static bool EnableMultiplayerQuickSl = false;
+
+    [UIVisibleWhen(nameof(EnableMultiplayerQuickSl))]
     [UIToggle]
     [Config(
         "发起多人 SL 时询问客机",
@@ -33,6 +49,7 @@ public static class QuickSlSettings
         Order = 10)]
     public static bool RequireMultiplayerClientConfirmation = true;
 
+    [UIVisibleWhen(nameof(EnableMultiplayerQuickSl))]
     [UIToggle]
     [Config(
         "允许客机发起多人 SL",
@@ -42,6 +59,7 @@ public static class QuickSlSettings
         Order = 15)]
     public static bool AllowClientInitiatedQuickSl = true;
 
+    [UIVisibleWhen(nameof(EnableMultiplayerQuickSl))]
     [UIToggle]
     [Config(
         "客机发起多人 SL 时询问主机",
