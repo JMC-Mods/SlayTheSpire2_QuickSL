@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0] - 2026-7-11
+### Added
+- Added a master toggle for multiplayer features. Disabling it at runtime prevents QuickSL from affecting multiplayer compatibility; enabling it activates multiplayer SL and displays its detailed settings.
+
+### Changed
+- JmcModLib 1.7.0 or later is now required.
+
 ## [1.5.0] - 2026-07-03
 ### Added
 - Added a configurable option to skip fade-in and fade-out transition animations. It is enabled by default.
