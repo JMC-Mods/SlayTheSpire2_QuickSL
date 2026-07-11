@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.6.1] - 2026-7-11
+### Fixed
+- The multiplayer SL feature should be enabled by default.
+
 ## [1.6.0] - 2026-7-11
 ### Added
 - Added a master toggle for multiplayer features. Disabling it at runtime prevents QuickSL from affecting multiplayer compatibility; enabling it activates multiplayer SL and displays its detailed settings.

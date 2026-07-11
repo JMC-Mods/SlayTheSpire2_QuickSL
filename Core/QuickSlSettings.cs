@@ -37,7 +37,7 @@ public static class QuickSlSettings
         Key = "multiplayer.enabled",
         Order = 5,
         RestartRequired = false)]
-    public static bool EnableMultiplayerQuickSl = false;
+    public static bool EnableMultiplayerQuickSl = true;
 
     [UIVisibleWhen(nameof(EnableMultiplayerQuickSl))]
     [UIToggle]
