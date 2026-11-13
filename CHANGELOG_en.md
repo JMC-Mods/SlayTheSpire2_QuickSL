@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.9.0] - 2026-11-13
+### Fixed
+- Adapted to the merchant synchronizer introduced in game `0.113.0`.
+
 ## [1.8.0] - 2026-8-14
 ### Fixed
 - Added compatibility with game version 0.111.0.

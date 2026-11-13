@@ -19,7 +19,7 @@
 
 Subscribe on Steam Workshop, or download a release and extract it into the game's `mods` directory.
 
-QuickSL requires [JmcModLib](https://github.com/JMC-Mods/SlayTheSpire2_JmcModLib/releases) `1.8.1` or newer.
+QuickSL requires [JmcModLib](https://github.com/JMC-Mods/SlayTheSpire2_JmcModLib/releases) `1.9.0` or newer.
 
 ```text
 Slay the Spire 2/
@@ -60,6 +60,8 @@ When multiplayer Quick Save Load is enabled, every player in the session must in
 The current implementation transfers an uncompressed JSON save with a `1 MiB` limit.
 
 ## Compatibility
+
+For game `0.113.0`, QuickSL `1.9.0` with JmcModLib `1.10.0` or later is recommended. Multiplayer quick reload cleans up the new merchant subscriptions while retaining the compatibility path for older game versions.
 
 Slay the Spire 2 is in Early Access, so game updates may require a QuickSL update.
 

@@ -1,6 +1,7 @@
 using JmcModLib.Compat;
 using JmcModLib.Reflection;
 using JmcModLib.Utils;
+using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Multiplayer.Game.Lobby;
 using MegaCrit.Sts2.Core.Nodes;
@@ -14,6 +15,19 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
 {
     private static readonly MemberAccessor NetServiceAccessor =
         MemberAccessor.Get(typeof(RunManager), nameof(RunManager.NetService));
+
+    // 0.113 新增商店同步器；只按成员名称读取，避免旧版加载时绑定不存在的类型或属性。
+    private static readonly Lazy<MemberAccessor?> MerchantSynchronizerAccessor = new(() =>
+    {
+        try
+        {
+            return MemberAccessor.Get(typeof(RunManager), "MerchantSynchronizer");
+        }
+        catch (MissingMemberException)
+        {
+            return null;
+        }
+    });
 
     private readonly SemaphoreSlim reloadLock = new(1, 1);
 
@@ -71,6 +85,8 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
             INetGameService protectedNetService =
                 DisconnectSuppressingNetGameService.Create(originalNetService);
             object loadLobbyListener = PassiveLoadRunLobbyListener.CreateListener();
+            // 在拆除旧局前读取新增同步器；未知成员形态应中止本次 SL，不能留下旧订阅继续重载。
+            IDisposable? merchantSynchronizer = GetMerchantSynchronizer(runManager);
 
             ModLogger.Info($"多人快速 SL：执行同步重载，RequestId={requestId}，在线玩家数={connectedPlayerIds.Count}。");
             QuickSlAsyncOperationGuard.CancelPendingGameWaits();
@@ -89,6 +105,21 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
             {
                 QuickSlRunManagerCompat.CleanUpForQuickSlReload(runManager);
                 cleanedUp = true;
+                if (merchantSynchronizer != null)
+                {
+                    // 原版清理会断开连接，但不会释放商店订阅；保留连接时必须显式释放。
+                    // 失败交给外层恢复到主菜单，避免继续复用残留商店消息处理器的连接。
+                    try
+                    {
+                        merchantSynchronizer.Dispose();
+                        ModLogger.Debug("多人快速 SL：已清理旧局网络同步器 MerchantSynchronizer。");
+                    }
+                    catch
+                    {
+                        originalNetService.Disconnect(NetError.InternalError, now: true);
+                        throw;
+                    }
+                }
             }
             finally
             {
@@ -150,6 +181,16 @@ internal sealed class QuickSlMultiplayerReloader(QuickSlMultiplayerController co
 
             reloadLock.Release();
         }
+    }
+
+    private static IDisposable? GetMerchantSynchronizer(RunManager runManager)
+    {
+        return MerchantSynchronizerAccessor.Value?.GetValue(runManager) switch
+        {
+            null => null,
+            IDisposable synchronizer => synchronizer,
+            _ => throw new InvalidOperationException("当前游戏版本的商店同步器无法释放，已中止多人快速 SL。")
+        };
     }
 
     private static void DisposeNetworkPreservedRunSystems(RunManager runManager)

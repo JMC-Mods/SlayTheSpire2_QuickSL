@@ -25,7 +25,7 @@ Steam版本直接在创意工坊订阅即可
 目录下（没有就新建一个）
 
 ### 前置安装
-**此外，本模组强依赖于模组[JmcModLib](https://github.com/JMC-Mods/SlayTheSpire2_JmcModLib/releases) `1.8.1` 或更高版本**，安装方法同上
+**此外，本模组强依赖于模组[JmcModLib](https://github.com/JMC-Mods/SlayTheSpire2_JmcModLib/releases) `1.9.0` 或更高版本**，安装方法同上
 
 安装完成后的目录结构如下：
 
@@ -87,12 +87,13 @@ QuickSL 是一个《杀戮尖塔 2》MOD，用于通过可配置热键（**支�
 当前实现发送的是未压缩 JSON 存档。本机测试中的多人存档约为 `66.9 KiB`，一般情况下预计在几十到数百 KiB 之间；单次同步上限为 `1 MiB`。如果后续遇到体积问题，可以进一步改为压缩后传输。
  
 ## 🔔 3. 提醒
-- **本模组强依赖于模组[JmcModLib](https://github.com/JMC-Mods/SlayTheSpire2_JmcModLib/releases) `1.8.1` 或更高版本**
+- **本模组强依赖于模组[JmcModLib](https://github.com/JMC-Mods/SlayTheSpire2_JmcModLib/releases) `1.9.0` 或更高版本**
 - 只有启用多人快速 SL 时，联机中的所有玩家才需要安装兼容版本的 QuickSL 和前置；保持默认关闭时不会参与多人 MOD 同步
 - 多人快速 SL 会使用 QuickSL 自定义网络消息，不同版本之间可能不兼容。
 - 按键原生支持Steam输入，如果想在手柄绑定事件，在Steam的控制器设置中分配即可。
 
 ## 🧩 4. 兼容性
+- 游戏 `0.113.0` 建议搭配 QuickSL `1.9.0` 与 JmcModLib `1.10.0` 或更高版本；多人快速 SL 会清理新增的商店同步订阅，并保留旧版兼容路径。
 - 由于游戏处于EA阶段，可能会随着游戏版本更新而失效
 
 ## 🧭 5. TODO
